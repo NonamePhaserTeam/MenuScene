@@ -15,8 +15,8 @@ export default class MenuButton extends Phaser.GameObjects.Container
     {
         super(scene, x, y)
 
-        this.button = this.scene.add.image(x, y, texture).setScale(1.3 )
-        this.text = this.scene.add.bitmapText(x, y, font, text, 36).setOrigin(0.5, 0.5)
+        this.button = scene.add.image(0, 0, texture).setScale(1.3)
+        this.text = scene.add.bitmapText(0, 0, font, text, 36).setOrigin(0.5, 0.5)
 
         this.add(this.button)
         this.add(this.text)
@@ -27,13 +27,15 @@ export default class MenuButton extends Phaser.GameObjects.Container
 
     }
 
-    Hide(flag: boolean) : void
+    Hide(flag: boolean) : MenuButton
     {
         this.button.setVisible(!flag)
         this.text.setVisible(!flag)
+
+        return this
     }
 
-    Opacity(mode: number) : void
+    Opacity(mode: number) : MenuButton
     {
         if(mode == 1)
         {
@@ -50,5 +52,7 @@ export default class MenuButton extends Phaser.GameObjects.Container
             this.button.clearTint()
             this.text.clearTint()
         }
+
+        return this
     }
 }
