@@ -3,6 +3,8 @@
 enum TextureKeys
 {
     Logo = 'logo',
+    MenuBackground = 'menu-background',
+    MenuButton = 'menu-button',
 }
 
 export default TextureKeys

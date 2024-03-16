@@ -3,7 +3,8 @@
 enum SceneKeys
 {
 	Preloader = 'preloader',
-	Game = 'HelloWorldScene'
+	Menu = 'menu',
+	Barcode = 'barcode'
 }
 
 export default SceneKeys
