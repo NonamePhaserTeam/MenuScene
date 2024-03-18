@@ -4,7 +4,9 @@ enum SceneKeys
 {
 	Preloader = 'preloader',
 	Game = 'HelloWorldScene',
-	GameMazzuolo = 'MainMenuMazzuolo'
+	GameMazzuolo = 'MainMenuMazzuolo',
+	Menu = 'menu',
+	Barcode = 'barcode'
 }
 
 export default SceneKeys

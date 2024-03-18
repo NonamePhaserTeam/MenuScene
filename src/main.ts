@@ -1,6 +1,6 @@
 import "phaser"
 
-import HelloWorldScene from "./scenes/HelloWorldScene"
+import Menu from "./scenes/Menu"
 import Preloader from "./scenes/Preloader"
 
 import { gameSettings } from "./consts/GameSettings"
@@ -28,7 +28,8 @@ const config: Phaser.Types.Core.GameConfig = {
   scene: [
     Preloader,
     HelloWorldScene,
-    MainMenuMazzuolo
+    MainMenuMazzuolo,
+    Menu,
   ],
 }
 

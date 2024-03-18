@@ -4,7 +4,9 @@ enum TextureKeys
 {
     Logo = 'logo',
     Button = 'button',
-    Sfondo = 'sfondo'
+    Sfondo = 'sfondo',
+    MenuBackground = 'menu-background',
+    MenuButton = 'menu-button',
 }
 
 export default TextureKeys
