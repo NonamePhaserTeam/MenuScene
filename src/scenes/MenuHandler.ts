@@ -66,7 +66,17 @@ export default class MenuHandler extends Phaser.GameObjects.Container
             }
         }
 
+        if(this.cursors.up?.isDown)
+        {
+            if(this.firstButton || this.lastT + 150 < t)
+            {
+                if(this.firstButton) this.firstButton = false
 
+                this.lastT = t
+
+                if(this.ScrollUp()) this.btnIndex -= 1
+            }
+        }
     }
 
     private ScrollDown() :boolean
@@ -97,12 +107,49 @@ export default class MenuHandler extends Phaser.GameObjects.Container
 
     private ScrollUp() :boolean
     {
+        if(this.btnIndex <= 0) return false
+        
+        // imposto nuovo precedente da 2 in poi
+        if(this.btnIndex > 1) this.HiddenToPrevious() 
+        
+        this.PreviousToActual()
+        this.ActualToNext()
+
+        if(this.btnIndex < 4) this.NextToLast()
+        
+        if(this.btnIndex < 3) this.buttons[this.btnIndex + 2].Hide(true)
+
         return true
     }
 
     private HiddenToPrevious() :void
     {
+        this.scene.tweens.add({
+            targets: this.buttons[this.btnIndex - 2],
+            y: gameSettings.gameHeight * 0.5 + 100,
+            scale: 0.85,
+            duration: 250,
+            ease: 'Linear',
+            yoyo: false,
+            repeat: 0
+        })
+        this.buttons[this.btnIndex - 2]
+            .Opacity(1)
+            .Hide(false)
+    }
 
+    private PreviousToActual() :void
+    {
+        this.scene.tweens.add({
+            targets: this.buttons[this.btnIndex - 1],
+            y: gameSettings.gameHeight * 0.5 + 200,
+            scale: 1,
+            duration: 250,
+            ease: 'Linear',
+            yoyo: false,
+            repeat: 0
+        })
+        this.buttons[this.btnIndex - 1].Opacity(0)
     }
 
     private ActualToPrevious() :void
@@ -117,6 +164,34 @@ export default class MenuHandler extends Phaser.GameObjects.Container
             repeat: 0
         })
         this.buttons[this.btnIndex].Opacity(1)
+    }
+
+    private ActualToNext() :void
+    {
+        this.scene.tweens.add({
+            targets: this.buttons[this.btnIndex],
+            y: gameSettings.gameHeight * 0.5 + 300,
+            scale: 0.85,
+            duration: 250,
+            ease: 'Linear',
+            yoyo: false,
+            repeat: 0
+        })
+        this.buttons[this.btnIndex].Opacity(1)
+    }
+
+    private NextToLast() :void
+    {
+        this.scene.tweens.add({
+            targets: this.buttons[this.btnIndex + 1],
+            y: gameSettings.gameHeight * 0.5 + 400,
+            scale: 0.7,
+            duration: 250,
+            ease: 'Linear',
+            yoyo: false,
+            repeat: 0
+        })
+        this.buttons[this.btnIndex + 1].Opacity(2)
     }
 
     private NextToActual() :void

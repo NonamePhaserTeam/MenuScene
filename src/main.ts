@@ -27,7 +27,6 @@ const config: Phaser.Types.Core.GameConfig = {
 
   scene: [
     Preloader,
-    HelloWorldScene,
     MainMenuMazzuolo,
     Menu,
   ],

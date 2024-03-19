@@ -6,7 +6,8 @@ enum SceneKeys
 	Game = 'HelloWorldScene',
 	GameMazzuolo = 'MainMenuMazzuolo',
 	Menu = 'menu',
-	Barcode = 'barcode'
+	Barcode = 'barcode',
+	SelezionaCarte = 'seleziona-carte'
 }
 
 export default SceneKeys
