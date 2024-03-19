@@ -14,6 +14,19 @@ export default class Preloader extends Phaser.Scene
     preload()
     {
         // preload di tutti gli asset
+
+        this.load.image(
+            TextureKeys.Logo, 
+            'assets/images/logo.jpg'
+        )
+        this.load.image(
+            TextureKeys.Button, 
+            'assets/images/button.jpg'
+        )
+        this.load.image(
+            TextureKeys.Sfondo, 
+            'assets/images/sfondo.png'
+        )
         this.loadImages()
         this.loadFonts()
     }
@@ -24,6 +37,8 @@ export default class Preloader extends Phaser.Scene
                 
 
         this.scene.stop(SceneKeys.Preloader);
+        // this.scene.start(SceneKeys.GameMazzuolo);
+        //this.scene.start(SceneKeys.Game);
         this.scene.start(SceneKeys.Menu);
     }
 

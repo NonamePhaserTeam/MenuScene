@@ -3,6 +3,8 @@
 enum SceneKeys
 {
 	Preloader = 'preloader',
+	Game = 'HelloWorldScene',
+	GameMazzuolo = 'MainMenuMazzuolo',
 	Menu = 'menu',
 	Barcode = 'barcode'
 }

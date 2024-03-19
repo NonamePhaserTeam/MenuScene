@@ -3,6 +3,8 @@
 enum TextureKeys
 {
     Logo = 'logo',
+    Button = 'button',
+    Sfondo = 'sfondo',
     MenuBackground = 'menu-background',
     MenuButton = 'menu-button',
 }
