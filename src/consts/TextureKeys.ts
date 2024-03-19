@@ -7,6 +7,9 @@ enum TextureKeys
     Sfondo = 'sfondo',
     MenuBackground = 'menu-background',
     MenuButton = 'menu-button',
+    lineaBianca = 'lineaBianca',
+    card1 = 'card1',
+    card2 = 'card2'
 }
 
 export default TextureKeys

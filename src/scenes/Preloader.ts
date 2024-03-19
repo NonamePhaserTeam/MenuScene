@@ -27,6 +27,18 @@ export default class Preloader extends Phaser.Scene
             TextureKeys.Sfondo, 
             'assets/images/sfondo.png'
         )
+        this.load.image(
+            TextureKeys.lineaBianca,
+            'images/lineaSelectMode.png'
+        )
+        this.load.image(
+            TextureKeys.card1,
+            'images/card1.png'
+        )
+        this.load.image(
+            TextureKeys.card2,
+            'images/card2.png'
+        )
         this.loadImages()
         this.loadFonts()
     }
@@ -39,7 +51,8 @@ export default class Preloader extends Phaser.Scene
         this.scene.stop(SceneKeys.Preloader);
         // this.scene.start(SceneKeys.GameMazzuolo);
         //this.scene.start(SceneKeys.Game);
-        this.scene.start(SceneKeys.Menu);
+        //this.scene.start(SceneKeys.Menu);
+        this.scene.start(SceneKeys.SelectMode);
     }
 
     private loadImages() : void

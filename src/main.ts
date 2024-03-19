@@ -5,6 +5,7 @@ import Preloader from "./scenes/Preloader"
 
 import { gameSettings } from "./consts/GameSettings"
 import MainMenuMazzuolo from "./scenes/MainMenuMazzuolo"
+import SelectMode from "./scenes/Selezionamodalità"
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -27,9 +28,9 @@ const config: Phaser.Types.Core.GameConfig = {
 
   scene: [
     Preloader,
-    HelloWorldScene,
     MainMenuMazzuolo,
     Menu,
+    SelectMode
   ],
 }
 

@@ -5,8 +5,9 @@ enum SceneKeys
 	Preloader = 'preloader',
 	Game = 'HelloWorldScene',
 	GameMazzuolo = 'MainMenuMazzuolo',
+	SelectMode = 'Selezionamodalità',
 	Menu = 'menu',
-	Barcode = 'barcode'
+	Barcode = 'barcode',
 }
 
 export default SceneKeys
