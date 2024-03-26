@@ -7,7 +7,7 @@ enum SceneKeys
 	GameMazzuolo = 'MainMenuMazzuolo',
 	SelectMode = 'Selezionamodalità',
 	Menu = 'menu',
-	Barcode = 'barcode',
+	Barcode = 'barcode'
 }
 
 export default SceneKeys

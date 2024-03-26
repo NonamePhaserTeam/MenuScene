@@ -1,7 +1,5 @@
 import Phaser, { Physics } from "phaser";
 
-// creare una classe ad hoc per sprite o oggetti di gioco complessi
-
 import TextureKeys from "../consts/TextureKeys";
 import AnimationKeys from "../consts/AnimationKeys";
 import FontKeys from "../consts/FontKeys";
