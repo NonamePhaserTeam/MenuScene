@@ -6,6 +6,7 @@ enum SceneKeys
 	Game = 'HelloWorldScene',
 	GameMazzuolo = 'MainMenuMazzuolo',
 	SelectMode = 'Selezionamodalità',
+	SelezionaPersonaggi = 'SelezionaPersonaggi',
 	Menu = 'menu',
 	Barcode = 'barcode'
 }

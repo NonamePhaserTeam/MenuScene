@@ -98,35 +98,49 @@ export default class Selezionamodalità extends Phaser.Scene
                 this.cardDxIsTint = false;
                 this.cardSxIsTint = true;
                 
-            }else{
-                this.cardSx.clearTint();
-                this.cardSx.setScale(1.2);
-                this.cardDx.setTint(0x555555);
-                this.cardDx.setScale(1);
-                this.cardDxIsTint = true;
-                this.cardSxIsTint = false;
             }
         }, this);
         
         // Rileva quando il cursore è sopra la carta destra (cardDx)
         this.cardSx.on('pointerover',  () => {
-            if(this.cardDxIsTint == true){//carta dx oscurata
-                this.cardDx.clearTint();
-                this.cardDx.setScale(1.2);
-                this.cardSx.setTint(0x555555);
-                this.cardSx.setScale(1);
-                this.cardDxIsTint = false;
-                this.cardSxIsTint = true;
-                
-            }else{
+            if(this.cardDxIsTint != true){//carta sx oscurata
                 this.cardSx.clearTint();
                 this.cardSx.setScale(1.2);
                 this.cardDx.setTint(0x555555);
                 this.cardDx.setScale(1);
                 this.cardDxIsTint = true;
                 this.cardSxIsTint = false;
+                
             }
         }, this);
+
+        this.input.keyboard.on('keydown-ENTER',()=>{
+            if(this.cardDxIsTint == true){//selezione modalità di sinistra
+                this.scene.stop(SceneKeys.SelectMode);
+                this.scene.start(SceneKeys.SelezionaPersonaggi);
+        
+            }else{//selezione modalità destra
+                this.scene.stop(SceneKeys.SelectMode);
+                this.scene.start(SceneKeys.SelezionaPersonaggi);
+            }
+        })
+
+
+        this.cardDx.on('pointerdown', ()=> {
+            if(this.cardDxIsTint == false){
+                this.scene.stop(SceneKeys.SelectMode);
+                this.scene.start(SceneKeys.SelezionaPersonaggi);   
+            }
+            
+        })
+
+        this.cardSx.on('pointerdown', ()=> {
+            if(this.cardSxIsTint == false){
+                this.scene.stop(SceneKeys.SelectMode);
+                this.scene.start(SceneKeys.SelezionaPersonaggi);   
+            }
+        })
+
 
 
     }
