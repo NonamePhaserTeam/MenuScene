@@ -4,6 +4,7 @@ import Phaser from 'phaser'
 import { gameSettings } from '../consts/GameSettings'
 import SceneKeys from '../consts/SceneKeys'
 import TextureKeys from '../consts/TextureKeys'
+// import {TextureKeys, sprites} from '../consts/TextureKeys'
 
 export default class Selezionamodalità extends Phaser.Scene
 {
@@ -27,6 +28,9 @@ export default class Selezionamodalità extends Phaser.Scene
         
     }
     create(){
+
+        
+
 
         console.log("seleziona modalità")
         this.cursor = this.input.activePointer;

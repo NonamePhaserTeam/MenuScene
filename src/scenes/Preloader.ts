@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import TextureKeys from "../consts/TextureKeys";
+// import {TextureKeys, sprites} from "../consts/TextureKeys";
 import SceneKeys from "../consts/SceneKeys";
 import AnimationKeys from "../consts/AnimationKeys";
 import FontKeys from "../consts/FontKeys";
@@ -20,6 +21,10 @@ export default class Preloader extends Phaser.Scene
             TextureKeys.Logo, 
             'assets/images/logo.jpg'
         )
+
+        // for(let key in sprites) {
+        //     console.log(sprites[key])
+        // }
         
         this.loadImages()
         this.loadFonts()
@@ -48,6 +53,10 @@ export default class Preloader extends Phaser.Scene
         this.load.image(
             TextureKeys.MenuBackground,
             'images/background/menu_bg.jpg'
+        )
+        this.load.image(
+            TextureKeys.MenuBackground2,
+            'public/images/background/sfondo2.png'
         )
 
         this.load.image(
@@ -119,16 +128,8 @@ export default class Preloader extends Phaser.Scene
         )
         
         this.load.image(
-            TextureKeys.stats[4],
-            [
-                'icons/personaggi/p1/desc1.png',
-                'icons/personaggi/p1/stats1.png',
-                'icons/personaggi/p2/stats2.png'    
-            ]
-        )
-        this.load.image(
-            TextureKeys.descitem1,
-            'icons/items/desc1item.PNG'      
+            TextureKeys.descContainer,
+            'icons/elementiDecorativi/descContainer.PNG'   
         )
         this.load.image(
             TextureKeys.itemSelectContainer,
@@ -139,6 +140,11 @@ export default class Preloader extends Phaser.Scene
         this.load.image(
             TextureKeys.desc1,
             'icons/personaggi/p1/desc1.png'
+        )
+         
+        this.load.image(
+            TextureKeys.descitem1,
+            '/icons/items/desc1item.png'
         )
     }
 

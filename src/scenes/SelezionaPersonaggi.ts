@@ -4,11 +4,14 @@ import TextureKeys from "../consts/TextureKeys";
 import SceneKeys from "../consts/SceneKeys";
 import AnimationKeys from "../consts/AnimationKeys";
 import FontKeys from "../consts/FontKeys";
+import path from "path";
 
 export default class SelezionaPersonaggi extends Phaser.Scene
 {
     Camera: Phaser.Cameras.Scene2D.Camera;
     cursors :Phaser.Types.Input.Keyboard.CursorKeys
+    cursor : any
+
     Sfondo: Phaser.GameObjects.Image;
     lineaDecorativaInferiore: Phaser.GameObjects.Image;
     lineaDecorativaSuperiore: Phaser.GameObjects.Image;
@@ -24,16 +27,20 @@ export default class SelezionaPersonaggi extends Phaser.Scene
     characters:Phaser.GameObjects.Group;
     character1:Phaser.GameObjects.Image;
     itemContainer:Phaser.GameObjects.Image;
-    descriptionsCharacters:Phaser.GameObjects.Group;
-    descriptionsCharacter1:Phaser.GameObjects.Image;
+    //descriptionsCharacters:Phaser.GameObjects.Group;
+    descriptionsCharactersContainer:Phaser.GameObjects.Image;
     namesCharacters:Phaser.GameObjects.Group;
     stats1:Phaser.GameObjects.Image;
     stats:Phaser.GameObjects.Image;
-    previewCharacterTMP:Phaser.GameObjects.Image; 
+    // charactersPhotoArray:Phaser.GameObjects.Image[];
+    //charactersPhotoArray:Phaser.GameObjects.Image[];
+    previewCharacterTMP:Phaser.GameObjects.Image;
+    previewCharacter1:Phaser.GameObjects.Image;
     text1: Phaser.GameObjects.Text;
     nomeCharacters:Phaser.GameObjects.Text;
     descitem1:Phaser.GameObjects.Image;
     itemSelector:Phaser.GameObjects.Image;
+    
     constructor()
     {
         super('SelezionaPersonaggi')
@@ -45,20 +52,37 @@ export default class SelezionaPersonaggi extends Phaser.Scene
 
     create()
     {
+        
+        // Crea un array di "strutture"
+        let charactersArray = [
+            { id: 1, name: 'Mario', photo:'path.png',razza: 'paganese', preview:'path.png',item:'path.png' },
+            { id: 2, name: '', photo:'path.png',razza: 'palermitano', preview:'path.png',item:'path.png' },
+            { id: 3, name: '', photo:'path.png',razza: 'angrese', preview:'path.png',item:'path.png' },
+        ];
         /*
         NOTE:
         la scena è divisa in 4 quadranti: 1 in alto a sx,2 in alto a dx,3 in basso a dx e 4 in basso a sx,
         //quadrante 5 a destra del quadrante 1
         in fase finale o rendere trasparente o cambiare lo z index delle linee di costruzione, non eliminarle perchè sono necessarie per i calcoli
 
-        */
+        FINE NOTE*/
         //inserimento nell'array di tutti i preview
         // let previewCharacterArray = [];
         // previewCharacterArray.push(this.add.image(gameSettings.gameWidth/2, gameSettings.gameHeight/2, TextureKeys.stats[0]));
+
+
+
+
+
         console.log("Scena di selezione dei personaggo");
+
+        //riattiva sfondo se non usi uno sfondo tile
         this.Sfondo = this.add.image(gameSettings.gameWidth/2, gameSettings.gameHeight/2, TextureKeys.Sfondo).setDepth(0);
+
         this.Sfondo.setDisplaySize(gameSettings.gameWidth, gameSettings.gameHeight);
         this.Sfondo.setTint(0x333333);
+
+
         console.log(gameSettings.gameHeight)
         let offset = 50;
         this.lineaDecorativaInferiore = this.add.image(gameSettings.gameWidth/2,gameSettings.gameHeight-100, TextureKeys.lineaBianca);
@@ -76,6 +100,20 @@ export default class SelezionaPersonaggi extends Phaser.Scene
         this.frecciaSceltaPersonaggioSx =  this.add.image(gameSettings.gameWidth/2,0, TextureKeys.arrowScelta);
         console.log("this.lineaDecorativaSuperiore.y"+this.lineaDecorativaSuperiore.y)
         console.log("this.lineaSimmetriaRettangolo1.y"+this.lineaSimmetriaRettangolo1.y)
+
+        let scrittaCombattenti = this.add.text(0,0,"COMBATTENTI!").setColor('#dddd00').setFontSize('72px');
+        scrittaCombattenti.setY(this.lineaDecorativaSuperiore.y/2-scrittaCombattenti.height/2)     
+        scrittaCombattenti.setX(gameSettings.gameWidth/2-scrittaCombattenti.width/2)
+        
+        
+
+
+
+
+
+
+
+
         //primo quadrante
         let heightFirstQuadrant = Math.abs(this.lineaDecorativaSuperiore.y - this.lineaSimmetriaRettangolo1.y);
         let widthFirstQuadrant = Math.abs(0 + this.lineaSimmetriaRettangolo1.x);
@@ -92,7 +130,11 @@ export default class SelezionaPersonaggi extends Phaser.Scene
         this.frecciaSceltaPersonaggioDx.setX(widthFirstQuadrant*0.80);//quella di destra dista 20% dal bordo destro
         this.frecciaSceltaPersonaggioDx.setY(heightFirstQuadrant - (frecciaSceltaPersonaggioDxHeight / 2));
         this.frecciaSceltaPersonaggioDx.setRotation(Math.PI);
-       
+         
+
+        this.frecciaSceltaPersonaggioSx.setInteractive();
+        this.frecciaSceltaPersonaggioDx.setInteractive();
+
         this.chain = this.add.image(gameSettings.gameWidth/2,gameSettings.gameHeight-100, TextureKeys.chain)
         .setScale(0.5);
         this.chain.setX(widthFirstQuadrant/2)
@@ -104,6 +146,16 @@ export default class SelezionaPersonaggi extends Phaser.Scene
         this.character1 = this.add.image(0,0,TextureKeys.pg1).setScale(0.6).setDepth(1);
         this.character1.setX(this.chain.x)
         this.character1.setY(this.chain.y)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         //secondo quadrante in basso a destra
         let heightSecondQuadrant = Math.abs(this.lineaSimmetriaRettangolo1.y - this.lineaDecorativaSuperiore.y);
         let widthSecondQuadrant = Math.abs(this.lineaSimmetriaRettangolo1.x - gameSettings.gameWidth)
@@ -125,6 +177,14 @@ export default class SelezionaPersonaggi extends Phaser.Scene
         speciePersonaggio.setColor('#dddd00');
         speciePersonaggio.setBackgroundColor('#000000')
         speciePersonaggio.setX(this.itemContainer.x-speciePersonaggio.width/2)
+        
+        
+        
+        
+        
+        
+        
+        
         //terzo quadrante in basso a sinistra
         let heightThirdQuadrant = Math.abs(this.lineaDecorativaInferiore.y - this.lineaSimmetriaRettangolo1.y);
         let widthThirdQuadrant = Math.abs(0 + this.lineaSimmetriaRettangolo1.x);
@@ -139,23 +199,46 @@ export default class SelezionaPersonaggi extends Phaser.Scene
 
 
         this.stats1.setY(this.lineaDecorativaInferiore.x-heightThirdQuadrant/2);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         //quarto quadrante
         let heightFourthQuadrant = Math.abs(this.lineaDecorativaInferiore.y - this.lineaSimmetriaRettangolo1.y);
         let widthFourthQuadrant = Math.abs(0 + this.lineaSimmetriaRettangolo1.x);
 
-        this.descriptionsCharacter1 = this.add.image(widthFourthQuadrant/2,0,TextureKeys.desc1);
-        this.descriptionsCharacter1.setY((  this.lineaDecorativaInferiore.y - (this.lineaDecorativaInferiore.y - this.stats1.y-this.stats1.height/2))-this.descriptionsCharacter1.height/2)
+        this.descriptionsCharactersContainer = this.add.image(widthFourthQuadrant/2,0,TextureKeys.descContainer);
+        this.descriptionsCharactersContainer.setY((  this.lineaDecorativaInferiore.y - (this.lineaDecorativaInferiore.y - this.stats1.y-this.stats1.height/2))-this.descriptionsCharactersContainer.height/2)
         console.log(this.lineaDecorativaInferiore.y-this.stats1.y + this.stats1.height/2)
 
-        this.text1 = this.add.text(0,0,"NOME PERSONAGGIO")
+        this.text1 = this.add.text(0,0,"ANTONIO LA MONTAGNA")
         
         //this.text1.setFont(FontKeys.Arcade);
-        this.text1.setFont(FontKeys.Arcade);
+        this.text1.setFont('FontKeys.Arcade');
         this.text1.setFontSize('48px');
+
         this.text1.setColor('#241198');
         this.text1.setBackgroundColor('#ffffff')
         this.text1.setX(widthFourthQuadrant/2-this.text1.width/2)
         this.text1.setY(this.lineaSimmetriaRettangolo1.y+this.lineaDecorativaSuperiore.y*0.2)
+
+        let mainTextDescContainer = this.add.text(0,0,"SCRITTA PRINCIPALE");
+        mainTextDescContainer.setColor('yellow');
+        mainTextDescContainer.setFontSize('24px')
+        mainTextDescContainer.setX(this.descriptionsCharactersContainer.x-(mainTextDescContainer.width/2))
+        mainTextDescContainer.setY(this.descriptionsCharactersContainer.y-mainTextDescContainer.height/2-40)
+        mainTextDescContainer.setText("NUOVO TESTO PER LA SCRITTA PRINCIPALE").setX(this.descriptionsCharactersContainer.x-(mainTextDescContainer.width/2));
+        let subMainTextDescContainer = this.add.text(0,0,"SCRITTA SECONDARIA");
+        subMainTextDescContainer.setX(this.descriptionsCharactersContainer.x-(subMainTextDescContainer.width/2))
+        subMainTextDescContainer.setY(this.descriptionsCharactersContainer.y-subMainTextDescContainer.height/2)
+        subMainTextDescContainer.setFontSize('18px')
 
         //this.stats = this.add.image(gameSettings.gameWidth/2,gameSettings.gameHeight/2,TextureKeys.stats[0])
         //da vedere
@@ -194,7 +277,7 @@ export default class SelezionaPersonaggi extends Phaser.Scene
         console.log("lar6 "+widthSixthQuadrant);
         this.itemSelector = this.add.image(this.lineaSimmetriaRettangolo3.x+widthSixthQuadrant/2,this.lineaDecorativaInferiore.y-heightSixthQuadrant/2,TextureKeys.itemSelectContainer).setScale(2)
     
-    
+
         this.input.keyboard.on('keydown-ENTER',()=>{
             this.cameras.main.pan(
                 (gameSettings.gameWidth+offset), //x
@@ -208,14 +291,43 @@ export default class SelezionaPersonaggi extends Phaser.Scene
                 this //callback context
             );
 
-            this.lineaDecorativaInferiore.setDepth(0)
-            this.lineaDecorativaSuperiore.setDepth(0)
-            this.lineaSimmetriaRettangolo1.setDepth(-1)
-            this.lineaSimmetriaRettangolo2.setDepth(-1)
-            this.lineaSimmetriaRettangolo3.setDepth(0)
+            // this.lineaDecorativaInferiore.setDepth(0)
+            // this.lineaDecorativaSuperiore.setDepth(0)
+            // this.lineaSimmetriaRettangolo1.setDepth(-1)
+            // this.lineaSimmetriaRettangolo2.setDepth(-1)
+            // this.lineaSimmetriaRettangolo3.setDepth(0)
         }
         )
+
+
+        //decommenta all'ultimo
+        this.lineaDecorativaInferiore.setAlpha(0.0);
+        this.lineaDecorativaSuperiore.setAlpha(0.0);
+        this.lineaSimmetriaRettangolo1.setAlpha(0.0);
+        this.lineaSimmetriaRettangolo2.setAlpha(0.0);
+        this.lineaSimmetriaRettangolo3.setAlpha(0.0);
+        this.chain.setAlpha(0.0);
+
+
+// NON FUNZIONA
+       
+        this.frecciaSceltaPersonaggioSx.on('pointerdown',  () => {
+            console.log("sx")
+            this.text1.setBackgroundColor('#493221')
+        }, this);
+        this.frecciaSceltaPersonaggioDx.on('pointerdown',  () => {
+            console.log("dx")
+        }, this);
+//FUNZIONA
+        this.input.keyboard.on('keydown-LEFT',()=>{
+            console.log("sx")
+            
+        });
+        this.input.keyboard.on('keydown-RIGHT',()=>{
+            console.log("dx")
+        });
     }
+
 
     update(time: number, delta: number): void {
         

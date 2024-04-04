@@ -1,11 +1,11 @@
 // inserire qui le texture sotto forma di chiave valore per un utilizzo più veloce e ordinato nelle scene
-
-enum TextureKeys
-{
+// import {Sprite} from "../../typings/custom"
+enum TextureKeys {
     Logo = 'logo',
     Button = 'button',
     Sfondo = 'sfondo',
     MenuBackground = 'menu-background',
+    MenuBackground2 = 'menu-background2',
     MenuButton = 'menu-button',
     lineaBianca = 'lineaBianca',
     card1 = 'card1',
@@ -29,10 +29,16 @@ enum TextureKeys
     desc1 = 'desc1',
     //desc items
     descitem1 = 'descitem1',
-    itemSelectContainer = 'itemSelectContainer'
-
-
-
+    itemSelectContainer = 'itemSelectContainer',
+    descContainer = 'descContainer'  
 }
 
-export default TextureKeys
+// let sprites: { [key: string]:  Sprite } = {
+//     chiave1: { width: 1, height: 2, startFrame: 3, path: "asd", },
+//     chiave2: { width: 2, height: 2, startFrame: 3, path: "asd", },
+//     chiave3: { width: 3, height: 2, startFrame: 3, path: "asd", }
+// };
+
+export default TextureKeys;
+    // sprites
+ 

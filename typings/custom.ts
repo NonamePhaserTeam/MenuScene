@@ -9,3 +9,9 @@ interface GameSettings {
     debug: boolean,
     zoom: number
 };
+interface Sprite {
+    width: number,
+    height: number,
+    startFrame: number,
+    path: string,
+};

@@ -1,5 +1,4 @@
 import Phaser, { Physics } from "phaser";
-
 import TextureKeys from "../consts/TextureKeys";
 import AnimationKeys from "../consts/AnimationKeys";
 import FontKeys from "../consts/FontKeys";

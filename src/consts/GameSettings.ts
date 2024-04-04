@@ -6,3 +6,4 @@ export let gameSettings: GameSettings = {
     debug: true,
     zoom: 1
 }
+
