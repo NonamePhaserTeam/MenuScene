@@ -29,9 +29,6 @@ export default class Selezionamodalità extends Phaser.Scene
     }
     create(){
 
-        
-
-
         console.log("seleziona modalità")
         this.cursor = this.input.activePointer;
         this.cursors = this.input.keyboard.createCursorKeys()
@@ -56,6 +53,24 @@ export default class Selezionamodalità extends Phaser.Scene
         this.cardSxIsTint = false;
         this.cardSx.setScale(1.2);
         
+        let scrittaScena = this.add.text(0,0,"SELEZIONA UN'OPZIONE").setColor('#dddd00').setFontSize('72px').setAlpha(0.0);
+        scrittaScena.setY(this.lineaDecorativaSuperiore.y/2-scrittaScena.height/2)     
+        scrittaScena.setX(gameSettings.gameWidth/2-scrittaScena.width/2)
+
+        this.tweens.add({
+            targets: scrittaScena,
+            alpha: 1, // Opacità desiderata (1 = completamente visibile)
+            duration: 1000, // Durata dell'animazione in millisecondi
+            ease: 'Linear', // Tipo di easing (puoi scegliere diversi tipi di easing se preferisci)
+            onComplete: () => {
+                // Callback da eseguire quando l'animazione è completata
+                // Puoi eseguire altre azioni se necessario
+            }
+        });
+
+
+
+
         this.input.keyboard.on('keydown-LEFT',()=>{
             if(this.cardDxIsTint == true){//carta dx oscurata
                 this.cardDx.clearTint();

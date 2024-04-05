@@ -2,6 +2,7 @@
 // import {Sprite} from "../../typings/custom"
 enum TextureKeys {
     Logo = 'logo',
+    MILITO = 'MILITO',
     Button = 'button',
     Sfondo = 'sfondo',
     MenuBackground = 'menu-background',

@@ -46,6 +46,10 @@ export default class Preloader extends Phaser.Scene
     private loadImages() : void
     {
         this.load.image(
+            TextureKeys.MILITO, 
+            'icons/MILITO.jpeg'
+        )
+        this.load.image(
             TextureKeys.Logo, 
             'images/logo.jpg'
         )
@@ -56,7 +60,7 @@ export default class Preloader extends Phaser.Scene
         )
         this.load.image(
             TextureKeys.MenuBackground2,
-            'public/images/background/sfondo2.png'
+            'images/background/sfondo2.png'
         )
 
         this.load.image(
