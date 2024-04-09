@@ -50,6 +50,14 @@ export default class Preloader extends Phaser.Scene
             'icons/MILITO.jpeg'
         )
         this.load.image(
+            TextureKeys.hotdog, 
+            'icons/hotdog.png'
+        )
+        this.load.image(
+            TextureKeys.maionese, 
+            'icons/maionese.jpg'
+        )
+        this.load.image(
             TextureKeys.Logo, 
             'images/logo.jpg'
         )
@@ -78,6 +86,26 @@ export default class Preloader extends Phaser.Scene
         this.load.image(
             TextureKeys.item1,
             '/icons/items/item1.png'
+        )
+        this.load.image(
+            TextureKeys.uno,
+            '/icons/items/1.png'
+        )
+        this.load.image(
+            TextureKeys.dx1,
+            '/icons/items/1+.png'
+        )
+        this.load.image(
+            TextureKeys.r1,
+            '/icons/items/1+1.png'
+        )
+        this.load.image(
+            TextureKeys.sx1,
+            '/icons/items/1+1-.png'
+        )
+        this.load.image(
+            TextureKeys.due,
+            '/icons/items/2.png'
         )
 
         this.load.image(

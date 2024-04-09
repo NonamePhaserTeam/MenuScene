@@ -3,6 +3,8 @@
 enum TextureKeys {
     Logo = 'logo',
     MILITO = 'MILITO',
+    hotdog = 'hotdog',
+    maionese = 'maionese',
     Button = 'button',
     Sfondo = 'sfondo',
     MenuBackground = 'menu-background',
@@ -11,6 +13,11 @@ enum TextureKeys {
     lineaBianca = 'lineaBianca',
     card1 = 'card1',
     card2 = 'card2',
+    uno = "1",
+    dx1 = "1dx",
+    sx1 = "1sx",
+    r1 = "1r",
+    due = "2",
     //personaggi
     pg1 = 'pg1',
     pg2 = 'pg2',
