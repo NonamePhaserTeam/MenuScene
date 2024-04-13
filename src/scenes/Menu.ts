@@ -20,8 +20,8 @@ export default class Menu extends Phaser.Scene
 
     create()
     {
-        this.add.image(gameSettings.gameWidth * 0.5, gameSettings.gameHeight * 0.5, TextureKeys.MenuBackground)
-            .setScale(1.7)
+        this.add.image(gameSettings.gameWidth * 0.5, gameSettings.gameHeight * 0.5, TextureKeys.MenuBackground3)
+            .setScale(1)
 
         this.menuHandler = new MenuHandler(this)
         this.menuHandler.create()

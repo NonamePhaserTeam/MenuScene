@@ -9,6 +9,7 @@ enum TextureKeys {
     Sfondo = 'sfondo',
     MenuBackground = 'menu-background',
     MenuBackground2 = 'menu-background2',
+    MenuBackground3 = 'menu-background3',
     MenuButton = 'menu-button',
     lineaBianca = 'lineaBianca',
     card1 = 'card1',
@@ -48,5 +49,4 @@ enum TextureKeys {
 // };
 
 export default TextureKeys;
-    // sprites
  

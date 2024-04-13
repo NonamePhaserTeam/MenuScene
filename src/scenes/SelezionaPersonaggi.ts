@@ -23,7 +23,6 @@ export default class SelezionaPersonaggi extends Phaser.Scene
     chain: Phaser.GameObjects.Image;
     Specchio: Phaser.GameObjects.Image;
     statsCharacters: Phaser.GameObjects.Group;
-    items:Phaser.GameObjects.Group;
     characters:Phaser.GameObjects.Group;
     character:Phaser.GameObjects.Image;
     itemContainer:Phaser.GameObjects.Image;
@@ -45,6 +44,7 @@ export default class SelezionaPersonaggi extends Phaser.Scene
     //
     charactersArraylun: any;
     iCharactersArray: number;
+    iItemsArray: number;
     offset: any;
     heightbetween2lines: any;
     scrittaCombattenti: any;
@@ -70,16 +70,21 @@ export default class SelezionaPersonaggi extends Phaser.Scene
     isAnimatingkeydownLEFT: any ;
     isAnimatingkeydownRIGHT: any;
     itemSelectorWidth:any;
+    isAnimatingkeydownRIGHTRoulette: any;
     
     arrayItemPos: number[] = [];
+    items: Phaser.GameObjects.Group;
+    offsetItem: number;
+    itemslun:any;
 
     itemArray = [
         {id:0,name:"0",photo:TextureKeys.uno ,descrizioneItem:""},
         {id:1,name:"1",photo:TextureKeys.r1 ,descrizioneItem:""},
         {id:2,name:"2",photo:TextureKeys.dx1 ,descrizioneItem:""},
         {id:3,name:"3",photo:TextureKeys.sx1 ,descrizioneItem:""},
-        {id:4,name:"4",photo:TextureKeys.due ,descrizioneItem:""}
-    ]
+        {id:4,name:"4",photo:TextureKeys.due ,descrizioneItem:""},
+        {id:5,name:"5",photo:TextureKeys.hotdog ,descrizioneItem:""}
+    ];
     charactersArray = [
         { id: 0, name: 'AntoGnio La Montagna', photo:TextureKeys.MILITO,descrizionePersonaggio:" ",razza: 'MOLOSSO', preview:TextureKeys.MILITO,descrizioneItem:""},
         { id: 1, name: 'Pasquale O DIavl', photo:TextureKeys.hotdog,descrizionePersonaggio:" ",razza: 'palermitano', preview:TextureKeys.hotdog,descrizioneItem:""},
@@ -103,7 +108,14 @@ export default class SelezionaPersonaggi extends Phaser.Scene
         
 
         this.charactersArraylun = this.charactersArray.length;
+        this.itemslun = this.itemArray.length;
+        console.log(this.itemslun)
         this.iCharactersArray = 0;
+        this.items = this.add.group()
+        
+        
+        // const arrayChildrenItems = this.items.getChildren() as Phaser.GameObjects.Image[];
+        // console.log(arrayChildrenItems.length);
         /*
         NOTE:
         la scena è divisa in 4 quadranti: 1 in alto a sx,2 in alto a dx,3 in basso a dx e 4 in basso a sx,
@@ -122,7 +134,7 @@ export default class SelezionaPersonaggi extends Phaser.Scene
         console.log("Scena di selezione dei personaggo");
 
         //riattiva sfondo se non usi uno sfondo tile
-        this.Sfondo = this.add.image(gameSettings.gameWidth/2, gameSettings.gameHeight/2, TextureKeys.Sfondo).setDepth(0);
+        this.Sfondo = this.add.image(gameSettings.gameWidth/2, gameSettings.gameHeight/2, TextureKeys.MenuBackground3).setDepth(0);
 
         this.Sfondo.setDisplaySize(gameSettings.gameWidth, gameSettings.gameHeight);
         this.Sfondo.setTint(0x333333);
@@ -351,24 +363,41 @@ export default class SelezionaPersonaggi extends Phaser.Scene
                                 for (let contArray = 0,cont = 0; (cont < 10) ; cont++) {
                                     if(cont % 2 == 1){
                                         let val = Math.round((this.itemSelectorWidth/10)*cont);
-                                        this.arrayItemPos.push(val);
+                                        
                                         this.itemSelector.setDepth(0)
                                         const item = this.add.image(0,0,this.itemArray[contArray].photo).setDepth(9999);
                                         item.height=this.itemSelector.height;
+                                        // this.items.add(item);
+
                                         //item.width = this.itemSelectorWidth/2;
                                         //console.log(item.height)
                                         // console.log(this.itemSelector.height)
                                         // OK SONO UGUALI
-                                        item.setY(this.itemSelector.y )
-                                        item.setX(this.itemSelector.x-this.itemSelector.width+val-item.width/2)//this.itemSelector.x-this.itemSelector.width è l'inizio di itemselector
-                                        //itemselector è in scale 2 quindi la metà della larghezza è senza /2                                 
+                                        if(cont != 5){
+                                            item.setY(this.itemSelector.y )
+                                            item.setX(this.itemSelector.x-this.itemSelector.width+val-item.width/2)//this.itemSelector.x-this.itemSelector.width è l'inizio di itemselector
+                                        }else{
+                                            item.setY(this.itemSelector.y )
+                                            item.setX(this.itemSelector.x)
+
+                                        }
+                                        this.arrayItemPos.push(item.x);
+                                        
+                                        this.items.add(item);
+                                                      
                                         //console.log(val)   
                                         contArray++;
+                                        
                                     }
+                                    this.offsetItem = Math.round((this.itemSelectorWidth/10)*2);
                                 }
                                 
-                                
-                                this.inputKeyboardEnterPostEnter()
+                                    
+                                for(let cont=4;cont < (this.itemslun-1);cont++){
+                                    const item = this.add.image(0,-gameSettings.gameHeight*2,this.itemArray[cont].photo).setDepth(999);//spawn fittizio
+                                    this.items.add(item);
+                                }
+                                this.inputKeyboardRightPostEnter()
                             }
                         });
                         
@@ -421,6 +450,8 @@ export default class SelezionaPersonaggi extends Phaser.Scene
 
       
         this.inputKeyboardRightAfterEnter()
+
+
         this.inputKeyboardLeftAfterEnter()
         
         
@@ -588,6 +619,17 @@ export default class SelezionaPersonaggi extends Phaser.Scene
         rect.setDepth(9999); // Assicura che il rettangolo sia sopra a tutti gli altri elementi
 
         // Crea un tween per far lampeggiare il rettangolo
+        this.tweens.add({
+            targets: this.Sfondo,
+            x: gameSettings.gameWidth,
+            duration: 0, // Durata del flash (in millisecondi)
+            ease: 'Linear',
+             // Ripeti l'effetto due volte (una volta per ogni direzione dello yoyo)
+            onComplete: () => {
+
+            }
+        })
+
         const flashTween = this.tweens.add({
             targets: rect,
             alpha: { from: 1, to: 0.7 }, // Aumenta l'opacità da 1 a 0 per farlo scomparire
@@ -608,16 +650,191 @@ export default class SelezionaPersonaggi extends Phaser.Scene
 
     inputKeyboardRightPostEnter(){
         
-        this.inputKeyboardLeftPostEnter()
-        this.inputKeyboardRightPostEnter()
+            this.input.keyboard.on('keydown-RIGHT',()=>{
+                console.log("dx")
+                if (this.isAnimatingkeydownRIGHT ) {
+                    return; // Esci dalla funzione se un'animazione è già in corso
+                }     
+                this.isAnimatingkeydownRIGHT = true;
+                //disabilita il movimento di sinistra 
+                // Interpolazione verso la nuova posizione
+                
+
+                // const numChildrenItems = arrayChildrenItems.length;
+                // console.log("numChildrenItems"+numChildrenItems)
+                const barrieraDaNonOltrepassare = this.itemSelector.x + this.itemSelector.width;//width è già la metà perchè itemselector è in scale(2)
+                // console.log(barrieraDaNonOltrepassare)
+                let arrayChildrenItems = this.items.getChildren() as Phaser.GameObjects.Image[];
+                let numChildrenItems = arrayChildrenItems.length;
+                
+                if(numChildrenItems == 5){
+                    // for(let cont = 0; cont < numChildrenItems; cont++) {
+                    //     const itemTMP = arrayChildrenItems[cont];
+                    //     let alphaVal;
+                    //     if((itemTMP.x+this.offsetItem) >= (barrieraDaNonOltrepassare-itemTMP.width)){alphaVal = Number(0.0)}
+                    //     else {alphaVal=Number(1)}
+                    //     //SOLO SE FOSSERO 5 elementi
+                    //     this.tweens.add({ 
+                    //         targets: itemTMP,
+                    //         x: (this.offsetItem + itemTMP.x),
+                    //         alpha: alphaVal, // Imposta l'alpha value tramite l'oggetto di configurazione
+                    //         duration: 100,
+                    //         ease: 'Cubic',
+                    //         onComplete: () => {
+                    //             this.isAnimatingkeydownRIGHT = false;
+                    //             console.log("finito");
+                    //             if (itemTMP.x >= (barrieraDaNonOltrepassare - itemTMP.width)) {
+                                    
+                    //                 itemTMP.setX(this.arrayItemPos[0]);
+                    //                 if(itemTMP.x = this.arrayItemPos[0]){
+                    //                     itemTMP.setAlpha(1);    
+                    //                 }
+                                    
+                    //             }
+                    //         }
+                    //     });
+                    // }
+                    
+                    for (let cont = 0; cont < numChildrenItems; cont++) {
+                        this.isAnimatingkeydownRIGHTRoulette = true;
+                        const itemTMP = arrayChildrenItems[cont];
+                        let alphaVal;
+                        if ((itemTMP.x+this.offsetItem) >= (barrieraDaNonOltrepassare - itemTMP.width)) {
+                            alphaVal = 0.0;
+                            itemTMP.setAlpha(alphaVal)
+                        } else {
+                            alphaVal = 1;
+                        }
+                        if(this.isAnimatingkeydownRIGHTRoulette){
+                            this.isAnimatingkeydownRIGHTRoulette=false;
+                            this.tweens.add({ 
+                                targets: itemTMP,
+                                x: (this.offsetItem + itemTMP.x),
+                                alpha: alphaVal, // Imposta l'alpha value tramite l'oggetto di configurazione
+                                duration: 100,
+                                ease: 'Linear',
+                                onComplete: () => {
+                                    this.isAnimatingkeydownRIGHT = false;
+                                    console.log("finito");
+                                    if (itemTMP.x >= (barrieraDaNonOltrepassare - itemTMP.width)) {
+                                        itemTMP.setAlpha(0.0);
+                                        itemTMP.setX(this.arrayItemPos[0]);
+                                        itemTMP.setAlpha(1);
+                                    }
+                                }
+                            });
+                        }
+                        this.isAnimatingkeydownRIGHTRoulette=true;
+                        
+                    }
+                    
+                }else{
+                    numChildrenItems = arrayChildrenItems.length;
+                    for (let cont = 0; cont < numChildrenItems; cont++) {
+                        this.isAnimatingkeydownRIGHTRoulette = true;
+                        let itemTMP = arrayChildrenItems[cont];
+                        let alphaVal;
+                        if ((itemTMP.x+this.offsetItem) >= (barrieraDaNonOltrepassare - itemTMP.width)) {
+                            alphaVal = 0.0;
+                            itemTMP.setAlpha(alphaVal)
+                        } else {
+                            alphaVal = 1;
+                        }
+                        if(this.isAnimatingkeydownRIGHTRoulette){
+                            this.isAnimatingkeydownRIGHTRoulette=false;
+                            this.tweens.add({ 
+                                targets: itemTMP,
+                                x: (this.offsetItem + itemTMP.x),
+                                alpha: alphaVal, // Imposta l'alpha value tramite l'oggetto di configurazione
+                                duration: 100,
+                                ease: 'Linear',
+                                onComplete: () => {
+                                    this.isAnimatingkeydownRIGHT = false;
+                                    console.log("finito");
+                                    if (itemTMP.x >= (barrieraDaNonOltrepassare - itemTMP.width)) {
+                                        itemTMP.setAlpha(0.0);
+                                        itemTMP.setX(this.arrayItemPos[0]);
+                                        console.log((cont+1)+"/"+this.itemslun);
+                                        console.log((cont+1)+"/"+(numChildrenItems-1));
+                                        if(cont+1 < this.itemslun){
+                                            console.log("if1")
+                                            if((cont+1) >= numChildrenItems-1){
+                                                console.log("if2")
+                                                itemTMP = this.add.image(this.arrayItemPos[0],this.itemSelector.y,this.itemArray[cont+1].photo).setDepth(9999);
+                                                itemTMP.height = 50;
+                                                itemTMP.width =  50;
+                                                this.items.add(itemTMP);
+                                                arrayChildrenItems = this.items.getChildren() as Phaser.GameObjects.Image[];
+                                                numChildrenItems = arrayChildrenItems.length;
+                                            }    
+                                        }else cont = 0;
+                                        
+                                        itemTMP = arrayChildrenItems[cont+1];
+                                        itemTMP.setAlpha(1);
+
+                                    }
+                                    
+                                    
+                                    
+                                        
+                                    }
+                                });
+                        }
+                        this.isAnimatingkeydownRIGHTRoulette=true;
+                        
+                    }
+                    // console.log(numChildrenItems)+
+                    // this.iItemsArray = numChildrenItems-1// VALE COME 5 perchè GLI ARRAY CONTANO DA 0
+                    // for(let cont = 0; cont < numChildrenItems; cont++) {
+                       
+                    //     let itemTMP = arrayChildrenItems[cont];
+                    //     let alphaVal;
+                    //     if((itemTMP.x + this.offsetItem) >= (barrieraDaNonOltrepassare-itemTMP.width)){alphaVal = Number(0.0)}
+                    //     else {alphaVal=Number(1)}
+                    //     //SOLO SE FOSSERO 5 elementi
+                    //     this.tweens.add({ 
+                    //         targets: itemTMP,
+                    //         x: (this.offsetItem + itemTMP.x),
+                    //         alpha: alphaVal, // Imposta l'alpha value tramite l'oggetto di configurazione
+                    //         duration: 100,
+                    //         ease: 'Cubic',
+                    //         onComplete: () => {
+                    //             this.isAnimatingkeydownRIGHT = false;
+                    //             console.log("finito");
+                    //             if (itemTMP.x >= (barrieraDaNonOltrepassare - itemTMP.width)) {
+                    //                 this.iItemsArray++;
+                    //                 console.log(this.iItemsArray)
+                    //                 if(this.iItemsArray > numChildrenItems){ this.iItemsArray=0;}
+                    //                 itemTMP.setX(this.arrayItemPos[0]);
+                    //                 console.log(cont+" "+itemTMP.x);
+                    //                 if(itemTMP.x = this.arrayItemPos[0]){
+                    //                     itemTMP.setAlpha(1);   
+                    //                     //itemTMP = arrayChildrenItems[this.iItemsArray]; 
+                    //                 }
+                                    
+                    //             }
+                    //         }
+                    //     });
+                    // }
+                }
+                
+            })
     }
+                
+                
+                    
+                       
+    
+        
+    
 
     inputKeyboardLeftPostEnter(){
 
     }
 
     inputKeyboardEnterPostEnter(){
-
+        this.inputKeyboardLeftPostEnter()
+        this.inputKeyboardRightPostEnter()
     }
 
 

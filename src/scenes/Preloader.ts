@@ -21,10 +21,6 @@ export default class Preloader extends Phaser.Scene
             TextureKeys.Logo, 
             'assets/images/logo.jpg'
         )
-
-        // for(let key in sprites) {
-        //     console.log(sprites[key])
-        // }
         
         this.loadImages()
         this.loadFonts()
@@ -66,9 +62,13 @@ export default class Preloader extends Phaser.Scene
             TextureKeys.MenuBackground,
             'images/background/menu_bg.jpg'
         )
+        // this.load.image(
+        //     TextureKeys.MenuBackground2,
+        //     'images/background/sfondoDef.png'
+        // )
         this.load.image(
-            TextureKeys.MenuBackground2,
-            'images/background/sfondo2.png'
+            TextureKeys.MenuBackground3,
+            'images/background/br.png'
         )
 
         this.load.image(

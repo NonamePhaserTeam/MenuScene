@@ -32,9 +32,10 @@ export default class Selezionamodalità extends Phaser.Scene
         console.log("seleziona modalità")
         this.cursor = this.input.activePointer;
         this.cursors = this.input.keyboard.createCursorKeys()
-        this.Sfondo = this.add.image(gameSettings.gameWidth/2, gameSettings.gameHeight/2, TextureKeys.Sfondo);
+        //this.Sfondo = this.add.image(gameSettings.gameWidth/2, gameSettings.gameHeight/2, TextureKeys.Sfondo);
+        this.Sfondo = this.add.image(gameSettings.gameWidth/2, gameSettings.gameHeight/2, TextureKeys.MenuBackground3);
         this.Sfondo.setDisplaySize(gameSettings.gameWidth, gameSettings.gameHeight);
-        this.Sfondo.setTint(0x333333);
+        this.Sfondo.setTint(0x222222);
         console.log(gameSettings.gameHeight)
         this.lineaDecorativaInferiore = this.add.image(gameSettings.gameWidth/2,gameSettings.gameHeight-100, TextureKeys.lineaBianca);
         this.lineaDecorativaInferiore.scaleX = (gameSettings.gameWidth / this.lineaDecorativaInferiore.width)-50;
