@@ -6,6 +6,7 @@ enum TextureKeys {
     hotdog = 'hotdog',
     maionese = 'maionese',
     Button = 'button',
+    cavalloitem= "cavalloitem",
     Sfondo = 'sfondo',
     MenuBackground = 'menu-background',
     MenuBackground2 = 'menu-background2',

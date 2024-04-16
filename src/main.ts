@@ -7,6 +7,7 @@ import { gameSettings } from "./consts/GameSettings"
 import MainMenuMazzuolo from "./scenes/MainMenuMazzuolo"
 import SelectMode from "./scenes/Selezionamodalità"
 import SelezionaPersonaggi from "./scenes/SelezionaPersonaggi"
+import tmp from "./scenes/tmp"
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -32,7 +33,8 @@ const config: Phaser.Types.Core.GameConfig = {
     MainMenuMazzuolo,
     Menu,
     SelectMode,
-    SelezionaPersonaggi
+    SelezionaPersonaggi,
+    tmp
   ],
 }
 

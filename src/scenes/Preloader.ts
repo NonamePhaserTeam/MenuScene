@@ -35,8 +35,9 @@ export default class Preloader extends Phaser.Scene
         // this.scene.start(SceneKeys.GameMazzuolo);
         //this.scene.start(SceneKeys.Game);
         //this.scene.start(SceneKeys.Menu);
-        this.scene.start(SceneKeys.SelectMode);
+        //this.scene.start(SceneKeys.SelectMode);
         //this.scene.start(SceneKeys.SelezionaPersonaggi);
+        this.scene.start(SceneKeys.tmp)
     }
 
     private loadImages() : void
@@ -86,6 +87,10 @@ export default class Preloader extends Phaser.Scene
         this.load.image(
             TextureKeys.item1,
             '/icons/items/item1.png'
+        )
+        this.load.image(
+            TextureKeys.cavalloitem,
+            '/icons/items/cavalloitem.jpg'
         )
         this.load.image(
             TextureKeys.uno,

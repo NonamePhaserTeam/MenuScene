@@ -83,7 +83,7 @@ export default class SelezionaPersonaggi extends Phaser.Scene
         {id:2,name:"2",photo:TextureKeys.dx1 ,descrizioneItem:""},
         {id:3,name:"3",photo:TextureKeys.sx1 ,descrizioneItem:""},
         {id:4,name:"4",photo:TextureKeys.due ,descrizioneItem:""},
-        {id:5,name:"5",photo:TextureKeys.hotdog ,descrizioneItem:""}
+        {id:5,name:"5",photo:TextureKeys.cavalloitem ,descrizioneItem:""}
     ];
     charactersArray = [
         { id: 0, name: 'AntoGnio La Montagna', photo:TextureKeys.MILITO,descrizionePersonaggio:" ",razza: 'MOLOSSO', preview:TextureKeys.MILITO,descrizioneItem:""},
@@ -108,7 +108,7 @@ export default class SelezionaPersonaggi extends Phaser.Scene
         
 
         this.charactersArraylun = this.charactersArray.length;
-        this.itemslun = this.itemArray.length;
+        this.itemslun = (this.itemArray.length);//l'array parte da 0
         console.log(this.itemslun)
         this.iCharactersArray = 0;
         this.items = this.add.group()
@@ -384,6 +384,7 @@ export default class SelezionaPersonaggi extends Phaser.Scene
                                         this.arrayItemPos.push(item.x);
                                         
                                         this.items.add(item);
+                                        
                                                       
                                         //console.log(val)   
                                         contArray++;
@@ -485,6 +486,7 @@ export default class SelezionaPersonaggi extends Phaser.Scene
                 return; // Esci dalla funzione se un'animazione è già in corso
             }     
             this.isAnimatingkeydownRIGHT = true;
+            
             //disabilita il movimento di sinistra 
             // Interpolazione verso la nuova posizione
             this.tweens.add({
@@ -658,7 +660,11 @@ export default class SelezionaPersonaggi extends Phaser.Scene
                 this.isAnimatingkeydownRIGHT = true;
                 //disabilita il movimento di sinistra 
                 // Interpolazione verso la nuova posizione
-                
+                for(let ct = 5;ct<this.itemslun;ct++){
+                    let item = this.add.image(this.arrayItemPos[0],this.itemSelector.y,this.itemArray[ct].photo).setDepth(9999).setAlpha(0);
+                    this.items.add(item)       
+                    item.destroy()
+                }//immetto nel group "items" tutti gli object "item"
 
                 // const numChildrenItems = arrayChildrenItems.length;
                 // console.log("numChildrenItems"+numChildrenItems)
@@ -750,35 +756,45 @@ export default class SelezionaPersonaggi extends Phaser.Scene
                                 ease: 'Linear',
                                 onComplete: () => {
                                     this.isAnimatingkeydownRIGHT = false;
-                                    console.log("finito");
+                                    console.log("Si è spostato item " + cont);
+                                    arrayChildrenItems = this.items.getChildren() as Phaser.GameObjects.Image[];
+                                    numChildrenItems = arrayChildrenItems.length;
+                                    console.log((cont)+"/"+(numChildrenItems-1));
                                     if (itemTMP.x >= (barrieraDaNonOltrepassare - itemTMP.width)) {
                                         itemTMP.setAlpha(0.0);
                                         itemTMP.setX(this.arrayItemPos[0]);
-                                        console.log((cont+1)+"/"+this.itemslun);
-                                        console.log((cont+1)+"/"+(numChildrenItems-1));
-                                        if(cont+1 < this.itemslun){
-                                            console.log("if1")
-                                            if((cont+1) >= numChildrenItems-1){
-                                                console.log("if2")
-                                                itemTMP = this.add.image(this.arrayItemPos[0],this.itemSelector.y,this.itemArray[cont+1].photo).setDepth(9999);
-                                                itemTMP.height = 50;
-                                                itemTMP.width =  50;
-                                                this.items.add(itemTMP);
-                                                arrayChildrenItems = this.items.getChildren() as Phaser.GameObjects.Image[];
-                                                numChildrenItems = arrayChildrenItems.length;
-                                            }    
-                                        }else cont = 0;
+                                        let tmpCont = cont+1;
+                                        console.log((tmpCont));
+                                        console.log((numChildrenItems));
+                                        if((tmpCont) == numChildrenItems){
+                                            console.log("sto nell'if")
+                                            tmpCont = 0
+                                        }// }else tmpCont++
+                                        console.log("NON sto nell'if")
+                                        itemTMP.setTexture(this.itemArray[tmpCont].photo).setDepth(9999);
+                                        // itemTMP.setY(this.itemSelector.y)
+                                        // itemTMP.setX(this.arrayItemPos[0]);
+                                
                                         
-                                        itemTMP = arrayChildrenItems[cont+1];
+                                        
+                                        // if(cont < (this.itemslun)){
+                                        //     console.log("if1")
+                                            // if((cont+1) >= numChildrenItems-1){
+                                                //vedi il valore dell'item corrente
+                                                //se è l'ultimo vai al primo
+                                                //se così non fosse vai a quello dopo
+                                                
+                                            // }    
+                                        // }
+                                        
+                                        // itemTMP = arrayChildrenItems[cont+1];
                                         itemTMP.setAlpha(1);
 
                                     }
-                                    
-                                    
-                                    
+
                                         
-                                    }
-                                });
+                                }
+                            });
                         }
                         this.isAnimatingkeydownRIGHTRoulette=true;
                         

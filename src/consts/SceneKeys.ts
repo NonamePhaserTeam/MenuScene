@@ -8,7 +8,8 @@ enum SceneKeys
 	SelectMode = 'Selezionamodalità',
 	SelezionaPersonaggi = 'SelezionaPersonaggi',
 	Menu = 'menu',
-	Barcode = 'barcode'
+	Barcode = 'barcode',
+	tmp = 'tmp'
 }
 
 export default SceneKeys
