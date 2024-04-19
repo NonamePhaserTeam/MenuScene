@@ -35,9 +35,9 @@ export default class Preloader extends Phaser.Scene
         // this.scene.start(SceneKeys.GameMazzuolo);
         //this.scene.start(SceneKeys.Game);
         //this.scene.start(SceneKeys.Menu);
-        //this.scene.start(SceneKeys.SelectMode);
+        this.scene.start(SceneKeys.SelectMode);
         //this.scene.start(SceneKeys.SelezionaPersonaggi);
-        this.scene.start(SceneKeys.tmp)
+        //this.scene.start(SceneKeys.tmp)
     }
 
     private loadImages() : void
@@ -58,7 +58,14 @@ export default class Preloader extends Phaser.Scene
             TextureKeys.Logo, 
             'images/logo.jpg'
         )
-
+        this.load.image(
+            TextureKeys.indovinello, 
+            'icons/elementiDecorativi/indovinello.png'
+        )
+        this.load.image(
+            TextureKeys.indovinelloSelect, 
+            'images/indovinelloSelect.png'
+        )
         this.load.image(
             TextureKeys.MenuBackground,
             'images/background/menu_bg.jpg'
@@ -76,14 +83,47 @@ export default class Preloader extends Phaser.Scene
             TextureKeys.MenuButton,
             'images/button.png'
         )
+        // this.load.image(
+        //     TextureKeys.pg1,
+        //     'icons/personaggi/p1/pg1.png'
+        // )
+        // this.load.image(
+        //     TextureKeys.pg2,
+        //     'icons/personaggi/p2/pg2.png'
+        // ) 
         this.load.image(
             TextureKeys.pg1,
-            'icons/personaggi/p1/pg1.png'
-        )
+            'icons/vincy.png'
+        ) 
         this.load.image(
             TextureKeys.pg2,
-            'icons/personaggi/p2/pg2.png'
+            'icons/francy.png'
         ) 
+        this.load.image(
+            TextureKeys.pg3,
+            'icons/tommy.png'
+        ) 
+        this.load.image(
+            TextureKeys.pg4,
+            'icons/falcy.png'
+        ) 
+        this.load.image(
+            TextureKeys.pg5,
+            'icons/manu.png'
+        ) 
+        this.load.image(
+            TextureKeys.pg6,
+            'icons/jeb.png'
+        ) 
+        this.load.image(
+            TextureKeys.pg7,
+            'icons/mary.png'
+        )
+        this.load.image(
+            TextureKeys.pg8,
+            'icons/simy.png'
+        )  
+
         this.load.image(
             TextureKeys.item1,
             '/icons/items/item1.png'
@@ -159,10 +199,10 @@ export default class Preloader extends Phaser.Scene
             TextureKeys.card2,
             'images/card2.png'
         )
-        this.load.image(
-            TextureKeys.stats1,
-            'icons/personaggi/p1/stats1.png'
-        )
+        // this.load.image(
+        //     TextureKeys.stats1,
+        //     'icons/personaggi/p1/stats1.png'
+        // )
         
         this.load.image(
             TextureKeys.descContainer,
@@ -181,7 +221,47 @@ export default class Preloader extends Phaser.Scene
          
         this.load.image(
             TextureKeys.descitem1,
-            '/icons/items/desc1item.png'
+            '/icons/desc1item.png'
+        )
+        this.load.image(
+            TextureKeys.stats1,
+            '/icons/stats1.png'
+        )
+        this.load.image(
+            TextureKeys.stats2,
+            '/icons/stats2.png'
+        )
+        this.load.image(
+            TextureKeys.stats3,
+            '/icons/stats3.png'
+        )
+        this.load.image(
+            TextureKeys.stats4,
+            '/icons/stats4.png'
+        )
+        this.load.image(
+            TextureKeys.stats5,
+            '/icons/stats5.png'
+        )
+        this.load.image(
+            TextureKeys.stats6,
+            '/icons/stats6.png'
+        )
+        this.load.image(
+            TextureKeys.stats7,
+            '/icons/stats7.png'
+        )
+        this.load.image(
+            TextureKeys.stats8,
+            '/icons/stats8.png'
+        )
+        this.load.image(
+            TextureKeys.stats9,
+            '/icons/stats9.png'
+        )
+        this.load.image(
+            TextureKeys.stats10,
+            '/icons/stats10.png'
         )
     }
 

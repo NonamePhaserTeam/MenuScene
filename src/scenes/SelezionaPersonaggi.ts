@@ -8,76 +8,76 @@ import path from "path";
 
 export default class SelezionaPersonaggi extends Phaser.Scene
 {
-    Camera: Phaser.Cameras.Scene2D.Camera;
-    cursors :Phaser.Types.Input.Keyboard.CursorKeys
-    cursor : any
+    private Camera: Phaser.Cameras.Scene2D.Camera;
+    private cursors :Phaser.Types.Input.Keyboard.CursorKeys
+    private cursor : any
 
-    Sfondo: Phaser.GameObjects.Image;
-    lineaDecorativaInferiore: Phaser.GameObjects.Image;
-    lineaDecorativaSuperiore: Phaser.GameObjects.Image;
-    lineaSimmetriaRettangolo1: Phaser.GameObjects.Image;//orizzontale
-    lineaSimmetriaRettangolo2: Phaser.GameObjects.Image;//verticale prima della transizione
-    lineaSimmetriaRettangolo3: Phaser.GameObjects.Image;////verticale dopo la transizione
-    frecciaSceltaPersonaggioSx: Phaser.GameObjects.Image;
-    frecciaSceltaPersonaggioDx: Phaser.GameObjects.Image;
-    chain: Phaser.GameObjects.Image;
-    Specchio: Phaser.GameObjects.Image;
-    statsCharacters: Phaser.GameObjects.Group;
-    characters:Phaser.GameObjects.Group;
-    character:Phaser.GameObjects.Image;
-    itemContainer:Phaser.GameObjects.Image;
+    private Sfondo: Phaser.GameObjects.Image;
+    private lineaDecorativaInferiore: Phaser.GameObjects.Image;
+    private lineaDecorativaSuperiore: Phaser.GameObjects.Image;
+    private lineaSimmetriaRettangolo1: Phaser.GameObjects.Image;//orizzontale
+    private lineaSimmetriaRettangolo2: Phaser.GameObjects.Image;//verticale prima della transizione
+    private lineaSimmetriaRettangolo3: Phaser.GameObjects.Image;////verticale dopo la transizione
+    private frecciaSceltaPersonaggioSx: Phaser.GameObjects.Image;
+    private frecciaSceltaPersonaggioDx: Phaser.GameObjects.Image;
+    private chain: Phaser.GameObjects.Image;
+    private Specchio: Phaser.GameObjects.Image;
+    private statsCharacters: Phaser.GameObjects.Group;
+    private characters:Phaser.GameObjects.Group;
+    private character:Phaser.GameObjects.Image;
+    private itemContainer:Phaser.GameObjects.Image;
     //descriptionsCharacters:Phaser.GameObjects.Group;
-    descriptionsCharactersContainer:Phaser.GameObjects.Image;
-    namesCharacters:Phaser.GameObjects.Group;
-    stats1:Phaser.GameObjects.Image;
-    stats:Phaser.GameObjects.Image;
+    private descriptionsCharactersContainer:Phaser.GameObjects.Image;
+    private namesCharacters:Phaser.GameObjects.Group;
+    private stats1:Phaser.GameObjects.Image;
+    private stats:Phaser.GameObjects.Image;
     // charactersPhotoArray:Phaser.GameObjects.Image[];
     //charactersPhotoArray:Phaser.GameObjects.Image[];
-    previewCharacterTMP:Phaser.GameObjects.Image;
-    previewCharacter:Phaser.GameObjects.Image;
-    nomeCharacter: Phaser.GameObjects.Text;
-    nomeCharacters:Phaser.GameObjects.Text;
-    descitem1:Phaser.GameObjects.Image;
-    itemSelector:Phaser.GameObjects.Image;
+    private previewCharacterTMP:Phaser.GameObjects.Image;
+    private previewCharacter:Phaser.GameObjects.Image;
+    private nomeCharacter: Phaser.GameObjects.BitmapText;
+    private nomeCharacters:Phaser.GameObjects.BitmapText;
+    private descitem1:Phaser.GameObjects.Image;
+    private itemSelector:Phaser.GameObjects.Image;
     
 
     //
-    charactersArraylun: any;
-    iCharactersArray: number;
-    iItemsArray: number;
-    offset: any;
-    heightbetween2lines: any;
-    scrittaCombattenti: any;
-    scrittaSelezionaItems: any;
-    heightFirstQuadrant: any; 
-    widthFirstQuadrant: any;
-    frecciaSceltaPersonaggioSxHeight: any;
-    frecciaSceltaPersonaggioDxHeight: any;
-    heightSecondQuadrant: any ;
-    widthSecondQuadrant: any;
-    heightThirdQuadrant: any ;
-    widthThirdQuadrant: any;
-    scrittaEquipaggiamento: any;
-    heightFourthQuadrant: any ;
-    widthFourthQuadrant: any;
-    mainTextDescContainer: any;
-    subMainTextDescContainer: any;
+    private charactersArraylun: any;
+    private iCharactersArray: number;
+    private iItemsArray: number;
+    private offset: any;
+    private heightbetween2lines: any;
+    private scrittaTOP: any;
+    private scrittaSelezionaItems: any;
+    private heightFirstQuadrant: any; 
+    private widthFirstQuadrant: any;
+    private frecciaSceltaPersonaggioSxHeight: any;
+    private frecciaSceltaPersonaggioDxHeight: any;
+    private heightSecondQuadrant: any ;
+    private widthSecondQuadrant: any;
+    private heightThirdQuadrant: any ;
+    private widthThirdQuadrant: any;
+    private scrittaEquipaggiamento: any;
+    private heightFourthQuadrant: any ;
+    private widthFourthQuadrant: any;
+    private mainTextDescContainer: any;
+    private subMainTextDescContainer: any;
 
-    heightFifthQuadrant: any ;
-    widthFifthQuadrant: any;
-    heightSixthQuadrant: any;
-    widthSixthQuadrant: any;
-    isAnimatingkeydownLEFT: any ;
-    isAnimatingkeydownRIGHT: any;
-    itemSelectorWidth:any;
-    isAnimatingkeydownRIGHTRoulette: any;
+    private heightFifthQuadrant: any ;
+    private widthFifthQuadrant: any;
+    private heightSixthQuadrant: any;
+    private widthSixthQuadrant: any;
+    private isAnimatingkeydownLEFT: any ;
+    private isAnimatingkeydownRIGHT: any;
+    private itemSelectorWidth:any;
+    private isAnimatingkeydownRIGHTRoulette: any;
     
-    arrayItemPos: number[] = [];
-    items: Phaser.GameObjects.Group;
-    offsetItem: number;
-    itemslun:any;
+    private arrayItemPos: number[] = [];
+    private items: Phaser.GameObjects.Group;
+    private offsetItem: number;
+    private itemslun:any;
 
-    itemArray = [
+    private itemArray = [
         {id:0,name:"0",photo:TextureKeys.uno ,descrizioneItem:""},
         {id:1,name:"1",photo:TextureKeys.r1 ,descrizioneItem:""},
         {id:2,name:"2",photo:TextureKeys.dx1 ,descrizioneItem:""},
@@ -85,11 +85,17 @@ export default class SelezionaPersonaggi extends Phaser.Scene
         {id:4,name:"4",photo:TextureKeys.due ,descrizioneItem:""},
         {id:5,name:"5",photo:TextureKeys.cavalloitem ,descrizioneItem:""}
     ];
-    charactersArray = [
-        { id: 0, name: 'AntoGnio La Montagna', photo:TextureKeys.MILITO,descrizionePersonaggio:" ",razza: 'MOLOSSO', preview:TextureKeys.MILITO,descrizioneItem:""},
-        { id: 1, name: 'Pasquale O DIavl', photo:TextureKeys.hotdog,descrizionePersonaggio:" ",razza: 'palermitano', preview:TextureKeys.hotdog,descrizioneItem:""},
-        { id: 2, name: 'FALCIANOG502', photo:TextureKeys.maionese,descrizionePersonaggio:" ",razza: 'Falcone4ever', preview:TextureKeys.maionese,},
+    private charactersArray = [
+        { id: 0, name: 'Vincymodz', photo:TextureKeys.pg1,descrizionePersonaggio:"Un semplice spensierato che sorride sempre",razza: 'MOLOSSO', preview:TextureKeys.pg1,stats:TextureKeys.stats1},
+        { id: 1, name: 'Frax', photo:TextureKeys.pg2,descrizionePersonaggio:"Viaggiatore coraggioso ed esploratore remoto",razza: 'palermitano', preview:TextureKeys.pg2,stats:TextureKeys.stats2},
+        { id: 2, name: 'Desio', photo:TextureKeys.pg3,descrizionePersonaggio:"Musicista appassionato, creativo e sensibile",razza: 'Falcone4ever', preview:TextureKeys.pg3,stats:TextureKeys.stats3},
+        { id: 3, name: 'Python', photo:TextureKeys.pg4,descrizionePersonaggio:"Anima libera amante della natura",razza: 'Falcone4ever', preview:TextureKeys.pg4,stats:TextureKeys.stats4},
+        { id: 4, name: 'Manu', photo:TextureKeys.pg5,descrizionePersonaggio:"Esploratore audace amante della avventura",razza: 'Falcone4ever', preview:TextureKeys.pg5,stats:TextureKeys.stats5},
+        { id: 5, name: 'Jeb', photo:TextureKeys.pg6,descrizionePersonaggio:"Spirito gentile che diffonde gioia e compassione",razza: 'Falcone4ever', preview:TextureKeys.pg6,stats:TextureKeys.stats6},
+        { id: 6, name: 'Ryzerr', photo:TextureKeys.pg7,descrizionePersonaggio:"Mente brillante inventore del futuro",razza: 'Falcone4ever', preview:TextureKeys.pg7,stats:TextureKeys.stats7},
+        { id: 7, name: 'ZIo Tommy', photo:TextureKeys.pg8,descrizionePersonaggio:"Amico leale che protegge gli amici",razza: 'Falcone4ever', preview:TextureKeys.pg8,stats:TextureKeys.stats8}
     ];
+
     
     //
     constructor()
@@ -158,10 +164,10 @@ export default class SelezionaPersonaggi extends Phaser.Scene
         console.log("this.lineaDecorativaSuperiore.y"+this.lineaDecorativaSuperiore.y)
         console.log("this.lineaSimmetriaRettangolo1.y"+this.lineaSimmetriaRettangolo1.y)
         //AL CENTRO PRIMA DELLO SPOSTAMENTO DELLA CAM
-        this.scrittaCombattenti = this.add.text(0,0,"COMBATTENTI!").setColor('#dddd00').setFontSize('72px');
-        this.scrittaCombattenti.setY(this.lineaDecorativaSuperiore.y/2-this.scrittaCombattenti.height/2)     
-        this.scrittaCombattenti.setX(gameSettings.gameWidth/2-this.scrittaCombattenti.width/2)
-        //AL CENTRO DOPO LO SPOSTAMENTO DELLA CAM
+        this.scrittaTOP = this.add.bitmapText(0,0,FontKeys.Arcade,"I PERSONAGGI").setTint(0xdddd00).setFontSize(64);
+        this.scrittaTOP.setY(this.lineaDecorativaSuperiore.y/2-this.scrittaTOP.height/2)     
+        this.scrittaTOP.setX(gameSettings.gameWidth/2-this.scrittaTOP.width/2)
+            
         this.scrittaSelezionaItems = this.add.text(0,0,"SELEZIONA IL TUO OGGETTO").setColor('#dddd00').setFontSize('72px').setAlpha(0.0);
         this.scrittaSelezionaItems.setY(this.lineaDecorativaSuperiore.y/2-this.scrittaSelezionaItems.height/2)     
         this.scrittaSelezionaItems.setX(gameSettings.gameWidth*1-this.scrittaSelezionaItems.width/2)
@@ -204,32 +210,23 @@ export default class SelezionaPersonaggi extends Phaser.Scene
         console.log("alt2 "+this.heightSecondQuadrant);
         console.log("lar2 "+this.widthSecondQuadrant);
         this.Specchio = this.add.image((gameSettings.gameWidth- this.widthSecondQuadrant/2),0,TextureKeys.specchio);
-        this.Specchio.setX(Math.abs(gameSettings.gameWidth- (this.widthSecondQuadrant-this.Specchio.width*1)));
+        // this.Specchio.setX(Math.abs(gameSettings.gameWidth- (this.widthSecondQuadrant-this.Specchio.width*1)));
+        this.Specchio.setX(Math.abs(gameSettings.gameWidth - (this.widthSecondQuadrant/2)));
         console.log("this.Specchio.x nel quadrante 1 "+(gameSettings.gameWidth-this.Specchio.x));
         this.Specchio.setY(Math.abs(this.heightSecondQuadrant- this.Specchio.height/3))
         //perchè più si va a destra più sale la x,tutti i quadranti hanno la stessa misura
         //ma per mettere qualcosa nei quadranti c'è bisogno di vedere se partire da 0 
         //come quadrante 3 e 4 oppure sottrarre alla width totale come per 1 e 2 
-        this.itemContainer = this.add.image(0,0,TextureKeys.itemContainer).setScale(0.8);
+        this.itemContainer = this.add.image(0,0,TextureKeys.itemContainer).setScale(0.8).setAlpha(0);
         this.itemContainer.setX(Math.abs(this.Specchio.x + (this.Specchio.width * 1.5)))
         this.itemContainer.setY(Math.abs(this.lineaSimmetriaRettangolo2.y-this.Specchio.y+this.Specchio.height/2));//this.Specchio.height-this.itemContainer.height
     
-        this.scrittaEquipaggiamento = this.add.text(this.itemContainer.x,this.itemContainer.y-this.itemContainer.height/2-50,"OGGETTO")
+        this.scrittaEquipaggiamento = this.add.text(this.itemContainer.x,this.itemContainer.y-this.itemContainer.height/2-50,"OGGETTO").setAlpha(0)
         this.scrittaEquipaggiamento.setFontSize('48px');
         this.scrittaEquipaggiamento.setColor('#dddd00');
         this.scrittaEquipaggiamento.setBackgroundColor('#000000')
         this.scrittaEquipaggiamento.setX(this.itemContainer.x-this.scrittaEquipaggiamento.width/2)
-        
-        // let speciePersonaggio = this.add.text(this.itemContainer.x,this.itemContainer.y-this.itemContainer.height,charactersArray[0].razza)
-        // speciePersonaggio.setFontSize('48px');
-        // speciePersonaggio.setColor('#dddd00');
-        // speciePersonaggio.setBackgroundColor('#000000')
-        // speciePersonaggio.setX(this.itemContainer.x-speciePersonaggio.width/2)
-        
-        
-        
-        
-        
+            
         
         //terzo quadrante in basso a sinistra
         this.heightThirdQuadrant = Math.abs(this.lineaDecorativaInferiore.y - this.lineaSimmetriaRettangolo1.y);
@@ -238,20 +235,11 @@ export default class SelezionaPersonaggi extends Phaser.Scene
         console.log("lar3 "+this.widthThirdQuadrant);
         this.stats1 = this.add.image(0,0,TextureKeys.stats1).setScale(1);
         //this.stats1.setX(gameSettings.gameWidth - (gameSettings.gameWidth-this.itemContainer.x)-this.stats1.width/2 );
-        this.stats1.setX(gameSettings.gameWidth - this.stats1.width/2-Math.round(gameSettings.gameWidth - (this.itemContainer.width/2*0.8) -this.itemContainer.x));
-        console.log(Math.round(gameSettings.gameWidth - (this.itemContainer.width/2*0.8) -this.itemContainer.x))
+        this.stats1.setX(this.Specchio.x)
+        console.log("specchio.x"+this.Specchio.x)
         
         //(gameSettings.gameWidth-this.itemContainer.x-this.itemContainer.width)-gameSettings.gameWidth 
-
-
         this.stats1.setY(this.lineaDecorativaInferiore.x-this.heightThirdQuadrant/2);
-        
-        
-        
-        
-        
-        
-        
         
         
         
@@ -261,31 +249,37 @@ export default class SelezionaPersonaggi extends Phaser.Scene
         this.widthFourthQuadrant = Math.abs(0 + this.lineaSimmetriaRettangolo1.x);
 
         this.descriptionsCharactersContainer = this.add.image(this.widthFourthQuadrant/2,0,TextureKeys.descContainer);
-        this.descriptionsCharactersContainer.setY((  this.lineaDecorativaInferiore.y - (this.lineaDecorativaInferiore.y - this.stats1.y-this.stats1.height/2))-this.descriptionsCharactersContainer.height/2)
+        // this.descriptionsCharactersContainer.setY((  this.lineaDecorativaInferiore.y - (this.lineaDecorativaInferiore.y - this.stats1.y-this.stats1.height/2))-this.descriptionsCharactersContainer.height/2)
+        this.descriptionsCharactersContainer.setY(  this.lineaDecorativaInferiore.y - this.heightFourthQuadrant/2 )//-this.descriptionsCharactersContainer.height/2))
+
         console.log(this.lineaDecorativaInferiore.y-this.stats1.y + this.stats1.height/2)
 
-        this.nomeCharacter = this.add.text(0,0,this.charactersArray[0].name)
-        
-        //this.text1.setFont(FontKeys.Arcade);
-        this.nomeCharacter.setFont('FontKeys.Arcade');
-        this.nomeCharacter.setFontSize('48px');
+        // this.nomeCharacter = this.add.text(0,0,this.charactersArray[0].name)
+        this.nomeCharacter = this.add.bitmapText(0, 0, FontKeys.Arcade, this.charactersArray[0].name);
 
-        this.nomeCharacter.setColor('#dddddd');
+        //this.text1.setFont(FontKeys.Arcade);
+        // this.nomeCharacter.setFont('FontKeys.Arcade');
+        this.nomeCharacter.setFontSize(48);
+
+        this.nomeCharacter.setTint(0xdddddd);
         //this.nomeCharacter.setBackgroundColor('#ffffff')
         this.nomeCharacter.setX(this.widthFourthQuadrant/2-this.nomeCharacter.width/2)
         this.nomeCharacter.setY(this.lineaSimmetriaRettangolo1.y+this.lineaDecorativaSuperiore.y*0.2)
 
-        this.mainTextDescContainer = this.add.text(0,0,"SCRITTA PRINCIPALE");
-        this.mainTextDescContainer.setColor('yellow');
-        this.mainTextDescContainer.setFontSize('24px')
-        this.mainTextDescContainer.setX(this.descriptionsCharactersContainer.x-(this.mainTextDescContainer.width/2))
-        this.mainTextDescContainer.setY(this.descriptionsCharactersContainer.y-this.mainTextDescContainer.height/2-40)
+        // this.mainTextDescContainer = this.add.text(0,0,"SCRITTA PRINCIPALE");
+        this.mainTextDescContainer = this.add.bitmapText(0, 0, FontKeys.Arcade, 'SCRITTA PRINCIPALE').setTint(0xdddddd).setAlpha(0);
+        //this.mainTextDescContainer.setColor('yellow');
+        this.mainTextDescContainer.setFontSize(16)
+        this.mainTextDescContainer.setX(this.descriptionsCharactersContainer.x-(this.mainTextDescContainer.width))
+        this.mainTextDescContainer.setY(this.descriptionsCharactersContainer.y-this.mainTextDescContainer.height-this.offset)
         this.mainTextDescContainer.setText("NUOVO TESTO PER LA SCRITTA PRINCIPALE").setX(this.descriptionsCharactersContainer.x-(this.mainTextDescContainer.width/2));
-        this.subMainTextDescContainer = this.add.text(0,0,"SCRITTA SECONDARIA");
+        // this.subMainTextDescContainer = this.add.text(0,0,"SCRITTA SECONDARIA");
+        this.subMainTextDescContainer = this.add.bitmapText(0,0,FontKeys.Arcade,this.charactersArray[0].descrizionePersonaggio).setTint(0xdddddd);;
+        this.subMainTextDescContainer.setFontSize(14)
         this.subMainTextDescContainer.setX(this.descriptionsCharactersContainer.x-(this.subMainTextDescContainer.width/2))
         this.subMainTextDescContainer.setY(this.descriptionsCharactersContainer.y-this.subMainTextDescContainer.height/2)
-        this.subMainTextDescContainer.setFontSize('18px')
-
+        
+        this.stats1.y = this.descriptionsCharactersContainer.y 
 
      
         this.lineaSimmetriaRettangolo3 = this.add.image(gameSettings.gameWidth+this.offset,gameSettings.gameHeight/2, TextureKeys.lineaBianca);
@@ -307,12 +301,12 @@ export default class SelezionaPersonaggi extends Phaser.Scene
     
 
 
-        this.character = this.add.image(0,0,this.charactersArray[this.iCharactersArray].photo).setScale(1).setDepth(1);
+        this.character = this.add.image(0,0,this.charactersArray[this.iCharactersArray].photo).setScale(5).setDepth(1);
         this.character.setX(this.chain.x)
         this.character.setY(this.chain.y)
         this.character.setInteractive();
 
-        this.previewCharacter = this.add.image(0,0,this.charactersArray[this.iCharactersArray].preview).setScale(0.4)//.setDepth(1);
+        this.previewCharacter = this.add.image(0,0,this.charactersArray[this.iCharactersArray].preview).setScale(2.5)//.setDepth(1);
         this.previewCharacter.setX(this.Specchio.x)
         this.previewCharacter.setY(this.Specchio.y)
         // this.previewCharacter.setX((this.Specchio.x - this.Specchio.width / 2) + this.previewCharacter.width / 2)
@@ -321,107 +315,108 @@ export default class SelezionaPersonaggi extends Phaser.Scene
 
 
 
-        this.input.keyboard.on('keydown-ENTER',()=>{
-            this.flash()
-            this.cameras.main.pan(
-                (gameSettings.gameWidth),//(gameSettings.gameWidth+offset),// (gameSettings.gameWidth+offset), //x
-                gameSettings.gameHeight/2, //y
-                0, //duration // --> 5000 come prova per vedere il layout bene --> 2000 come val
-                "Sine.easeInOut", //ease function
-                true, // force
-                (camera: Phaser.Cameras.Scene2D.Camera, progress: number) => {
-                    
-                    this.tweens.add({
-                        targets: this.scrittaCombattenti,
-                        alpha: 0, // Opacità desiderata (0 = completamente trasparente)
-                        duration: 100, // Durata dell'animazione in millisecondi
-                        ease: 'Linear', // Tipo di easing (puoi scegliere diversi tipi di easing se preferisci)
-                        onComplete: () => {
-                            // Callback da eseguire quando l'animazione è completata
-                            this.scrittaCombattenti.destroy(); // Puoi distruggere l'oggetto se non è più necessario
+        // this.input.keyboard.on('keydown-ENTER',()=>{
+        //     //DECIDERE COSA FARE
+        //     //this.flash()
+        //     this.cameras.main.pan(
+        //         (gameSettings.gameWidth),//(gameSettings.gameWidth+offset),// (gameSettings.gameWidth+offset), //x
+        //         gameSettings.gameHeight/2, //y
+        //         0, //duration // --> 5000 come prova per vedere il layout bene --> 2000 come val
+        //         "Sine.easeInOut", //ease function
+        //         true, // force
+        //         (camera: Phaser.Cameras.Scene2D.Camera, progress: number) => {
+        //             //DECIDERE COSA FARE
+        //             // this.tweens.add({
+        //             //     targets: this.scrittaCombattenti,
+        //             //     alpha: 0, // Opacità desiderata (0 = completamente trasparente)
+        //             //     duration: 100, // Durata dell'animazione in millisecondi
+        //             //     ease: 'Linear', // Tipo di easing (puoi scegliere diversi tipi di easing se preferisci)
+        //             //     onComplete: () => {
+        //             //         // Callback da eseguire quando l'animazione è completata
+        //             //         this.scrittaCombattenti.destroy(); // Puoi distruggere l'oggetto se non è più necessario
                             
-                        }
-                    });
+        //             //     }
+        //             // });
                     
-                    if (progress === 1) { 
-                        console.log("pan completed"); 
-                        this.scrittaCombattenti.setAlpha(0.0)
+        //             // if (progress === 1) { 
+        //             //     console.log("pan completed"); 
+        //             //     this.scrittaCombattenti.setAlpha(0.0)
                     
 
-                        this.tweens.add({
-                            targets: this.scrittaSelezionaItems,
-                            alpha: 1, // Opacità desiderata (1 = completamente visibile)
-                            duration: 100, // Durata dell'animazione in millisecondi
-                            ease: 'Linear', // Tipo di easing (puoi scegliere diversi tipi di easing se preferisci)
-                            onComplete: () => {
-                                this.input.keyboard.off('keydown-ENTER');
-                                this.input.keyboard.off('keydown-LEFT');
-                                this.input.keyboard.off('keydown-RIGHT');
-                                //lavora su item selector per la roulette degli items
-                                this.itemSelectorWidth = this.itemSelector.width*2;//perchè su itemselector c'è setscale(2)
-                                console.log(this.itemSelector.height)
-                                for (let contArray = 0,cont = 0; (cont < 10) ; cont++) {
-                                    if(cont % 2 == 1){
-                                        let val = Math.round((this.itemSelectorWidth/10)*cont);
+        //             //     this.tweens.add({
+        //             //         targets: this.scrittaSelezionaItems,
+        //             //         alpha: 1, // Opacità desiderata (1 = completamente visibile)
+        //             //         duration: 100, // Durata dell'animazione in millisecondi
+        //             //         ease: 'Linear', // Tipo di easing (puoi scegliere diversi tipi di easing se preferisci)
+        //             //         onComplete: () => {
+        //             //             this.input.keyboard.off('keydown-ENTER');
+        //             //             this.input.keyboard.off('keydown-LEFT');
+        //             //             this.input.keyboard.off('keydown-RIGHT');
+        //             //             //lavora su item selector per la roulette degli items
+        //             //             this.itemSelectorWidth = this.itemSelector.width*2;//perchè su itemselector c'è setscale(2)
+        //             //             console.log(this.itemSelector.height)
+        //             //             for (let contArray = 0,cont = 0; (cont < 10) ; cont++) {
+        //             //                 if(cont % 2 == 1){
+        //             //                     let val = Math.round((this.itemSelectorWidth/10)*cont);
                                         
-                                        this.itemSelector.setDepth(0)
-                                        const item = this.add.image(0,0,this.itemArray[contArray].photo).setDepth(9999);
-                                        item.height=this.itemSelector.height;
-                                        // this.items.add(item);
+        //             //                     this.itemSelector.setDepth(0)
+        //             //                     const item = this.add.image(0,0,this.itemArray[contArray].photo).setDepth(9999);
+        //             //                     item.height=this.itemSelector.height;
+        //             //                     // this.items.add(item);
 
-                                        //item.width = this.itemSelectorWidth/2;
-                                        //console.log(item.height)
-                                        // console.log(this.itemSelector.height)
-                                        // OK SONO UGUALI
-                                        if(cont != 5){
-                                            item.setY(this.itemSelector.y )
-                                            item.setX(this.itemSelector.x-this.itemSelector.width+val-item.width/2)//this.itemSelector.x-this.itemSelector.width è l'inizio di itemselector
-                                        }else{
-                                            item.setY(this.itemSelector.y )
-                                            item.setX(this.itemSelector.x)
+        //             //                     //item.width = this.itemSelectorWidth/2;
+        //             //                     //console.log(item.height)
+        //             //                     // console.log(this.itemSelector.height)
+        //             //                     // OK SONO UGUALI
+        //             //                     if(cont != 5){
+        //             //                         item.setY(this.itemSelector.y )
+        //             //                         item.setX(this.itemSelector.x-this.itemSelector.width+val-item.width/2)//this.itemSelector.x-this.itemSelector.width è l'inizio di itemselector
+        //             //                     }else{
+        //             //                         item.setY(this.itemSelector.y )
+        //             //                         item.setX(this.itemSelector.x)
 
-                                        }
-                                        this.arrayItemPos.push(item.x);
+        //             //                     }
+        //             //                     this.arrayItemPos.push(item.x);
                                         
-                                        this.items.add(item);
+        //             //                     this.items.add(item);
                                         
                                                       
-                                        //console.log(val)   
-                                        contArray++;
+        //             //                     //console.log(val)   
+        //             //                     contArray++;
                                         
-                                    }
-                                    this.offsetItem = Math.round((this.itemSelectorWidth/10)*2);
-                                }
+        //             //                 }
+        //             //                 this.offsetItem = Math.round((this.itemSelectorWidth/10)*2);
+        //             //             }
                                 
                                     
-                                for(let cont=4;cont < (this.itemslun-1);cont++){
-                                    const item = this.add.image(0,-gameSettings.gameHeight*2,this.itemArray[cont].photo).setDepth(999);//spawn fittizio
-                                    this.items.add(item);
-                                }
-                                this.inputKeyboardRightPostEnter()
-                            }
-                        });
+        //             //             for(let cont=4;cont < (this.itemslun-1);cont++){
+        //             //                 const item = this.add.image(0,-gameSettings.gameHeight*2,this.itemArray[cont].photo).setDepth(999);//spawn fittizio
+        //             //                 this.items.add(item);
+        //             //             }
+        //             //             this.inputKeyboardRightPostEnter()
+        //             //         }
+        //             //     });
                         
                         
                         
-                        //this.arrayItemPos ha 5 val --> 1|2|3|4|5|
+        //             //     //this.arrayItemPos ha 5 val --> 1|2|3|4|5|
 
                         
                         
 
 
-                    }
-                },
-                this //callback context
-            );
+        //             // }
+        //         },
+        //         this //callback context
+        //     );
 
-            // this.lineaDecorativaInferiore.setDepth(0)
-            // this.lineaDecorativaSuperiore.setDepth(0)
-            // this.lineaSimmetriaRettangolo1.setDepth(-1)
-            // this.lineaSimmetriaRettangolo2.setDepth(-1)
-            // this.lineaSimmetriaRettangolo3.setDepth(0)
-        }
-        )
+        //     // this.lineaDecorativaInferiore.setDepth(0)
+        //     // this.lineaDecorativaSuperiore.setDepth(0)
+        //     // this.lineaSimmetriaRettangolo1.setDepth(-1)
+        //     // this.lineaSimmetriaRettangolo2.setDepth(-1)
+        //     // this.lineaSimmetriaRettangolo3.setDepth(0)
+        // }
+        // )
 
 
         //decommenta all'ultimo
@@ -493,8 +488,8 @@ export default class SelezionaPersonaggi extends Phaser.Scene
                 targets: this.character,
                 x: this.frecciaSceltaPersonaggioDx.x-this.frecciaSceltaPersonaggioDx.width/2,
                 duration: 500,//millis
-                scaleX: 0.5, // Scala X dell'immagine
-                scaleY: 0.5, // Scala Y dell'immagine
+                scaleX: 1.5, // Scala X dell'immagine
+                scaleY: 1.5, // Scala Y dell'immagine
                 ease: 'Linear', // Puoi scegliere diversi tipi di easing se preferisci
                 onComplete: () => {
                     //SCORRIMENTO PERSONAGGI
@@ -506,6 +501,9 @@ export default class SelezionaPersonaggi extends Phaser.Scene
                         console.log(this.iCharactersArray+'/'+(this.charactersArraylun-1))
                         this.character.setTexture(this.charactersArray[this.iCharactersArray].photo);
                         this.previewCharacter.setTexture(this.charactersArray[this.iCharactersArray].preview);
+                        this.subMainTextDescContainer.setText(this.charactersArray[this.iCharactersArray].descrizionePersonaggio)
+                        this.subMainTextDescContainer.setX(this.descriptionsCharactersContainer.x-(this.subMainTextDescContainer.width/2))
+                        this.stats1.setTexture(this.charactersArray[this.iCharactersArray].stats)
                     }else if(this.iCharactersArray < this.charactersArraylun && this.iCharactersArray != 0){
                         this.iCharactersArray = Number(this.iCharactersArray+1)
 
@@ -513,6 +511,9 @@ export default class SelezionaPersonaggi extends Phaser.Scene
 
                         this.character.setTexture(this.charactersArray[Number(this.iCharactersArray)].photo);
                         this.previewCharacter.setTexture(this.charactersArray[Number(this.iCharactersArray)].preview);
+                        this.subMainTextDescContainer.setText(this.charactersArray[this.iCharactersArray].descrizionePersonaggio)
+                        this.subMainTextDescContainer.setX(this.descriptionsCharactersContainer.x-(this.subMainTextDescContainer.width/2))
+                        this.stats1.setTexture(this.charactersArray[this.iCharactersArray].stats)
                         console.log(this.iCharactersArray +'/'+(this.charactersArraylun-1))
                         // speciePersonaggio.setText(charactersArray[Number(i)].razza);
                         // speciePersonaggio.setX(speciePersonaggio.x)
@@ -522,6 +523,9 @@ export default class SelezionaPersonaggi extends Phaser.Scene
                          console.log(this.iCharactersArray +'/'+(this.charactersArraylun-1))  
                          this.character.setTexture(this.charactersArray[this.iCharactersArray].photo);
                          this.previewCharacter.setTexture(this.charactersArray[this.iCharactersArray].preview);
+                         this.subMainTextDescContainer.setText(this.charactersArray[this.iCharactersArray].descrizionePersonaggio)
+                        this.subMainTextDescContainer.setX(this.descriptionsCharactersContainer.x-(this.subMainTextDescContainer.width/2))
+                        this.stats1.setTexture(this.charactersArray[this.iCharactersArray].stats)
                          this.iCharactersArray = Number(this.iCharactersArray+1) 
                     }
                     
@@ -532,14 +536,22 @@ export default class SelezionaPersonaggi extends Phaser.Scene
                         targets: this.character,
                         x: this.chain.x,
                         duration: 500,//millis
-                        scaleX: 1, // Scala X dell'immagine
-                        scaleY: 1, // Scala Y dell'immagine
+                        scaleX: 1.5, // Scala X dell'immagine
+                        scaleY: 1.5
+                        , // Scala Y dell'immagine
                         ease: 'Linear', // Puoi scegliere diversi tipi di easing se preferisci
                         onComplete: () => {
-                            this.character.setScale(1)
+                            this.character.setScale(5);
+                            this.previewCharacter.setScale(3)
                             this.isAnimatingkeydownRIGHT = false;
-                            if(this.iCharactersArray == 0) this.nomeCharacter.setText(this.charactersArray[0].name)
-                                else this.nomeCharacter.setText(this.charactersArray[this.iCharactersArray].name)
+                            if(this.iCharactersArray == 0){
+                                this.nomeCharacter.setText(this.charactersArray[0].name)
+                                this.stats1.setTexture(this.charactersArray[0].stats)
+                            }else{
+
+                                this.nomeCharacter.setText(this.charactersArray[this.iCharactersArray].name)
+                                this.stats1.setTexture(this.charactersArray[this.iCharactersArray].stats)
+                            }
                             console.log('charactersArray'+this.iCharactersArray)
                             this.nomeCharacter.setX(this.widthFourthQuadrant/2-this.nomeCharacter.width/2)
                             this.nomeCharacter.setY(this.lineaSimmetriaRettangolo1.y+this.lineaDecorativaSuperiore.y*0.2)
@@ -582,11 +594,17 @@ export default class SelezionaPersonaggi extends Phaser.Scene
                         this.iCharactersArray = (this.charactersArraylun - 1);
                         this.character.setTexture(this.charactersArray[this.iCharactersArray].photo);
                         this.previewCharacter.setTexture(this.charactersArray[this.iCharactersArray].preview);
+                        this.subMainTextDescContainer.setText(this.charactersArray[this.iCharactersArray].descrizionePersonaggio)
+                        this.stats1.setTexture(this.charactersArray[this.iCharactersArray].stats)
+                        this.subMainTextDescContainer.setX(this.descriptionsCharactersContainer.x-(this.subMainTextDescContainer.width/2))
                     } else if (this.iCharactersArray < this.charactersArraylun && this.iCharactersArray != 0) {
                         console.log('SEèminDimaxlunsx' + this.iCharactersArray + '/' + (this.charactersArraylun - 1))
                         this.iCharactersArray = Number(this.iCharactersArray - 1)
                         this.character.setTexture(this.charactersArray[Number(this.iCharactersArray)].photo);
                         this.previewCharacter.setTexture(this.charactersArray[Number(this.iCharactersArray)].preview);
+                        this.subMainTextDescContainer.setText(this.charactersArray[this.iCharactersArray].descrizionePersonaggio)
+                        this.stats1.setTexture(this.charactersArray[this.iCharactersArray].stats)
+                        this.subMainTextDescContainer.setX(this.descriptionsCharactersContainer.x-(this.subMainTextDescContainer.width/2))
                     }
                     this.character.setAlpha(0.0);
                     this.character.setX(this.frecciaSceltaPersonaggioDx.x);
@@ -595,14 +613,16 @@ export default class SelezionaPersonaggi extends Phaser.Scene
                         targets: this.character,
                         x: this.chain.x,
                         duration: 500,
-                        scaleX: 1,
-                        scaleY: 1,
+                        scaleX: 5,
+                        scaleY: 5,
                         ease: 'Linear',
                         onComplete: () => {
-                            this.character.setScale(1);
+                            this.character.setScale(5);
+                            this.previewCharacter.setScale(3)
                             this.isAnimatingkeydownLEFT = false;
                             console.log('SXNomeAll\'indice:' + this.iCharactersArray)
                             this.nomeCharacter.setText(this.charactersArray[this.iCharactersArray].name);
+                            this.stats1.setTexture(this.charactersArray[this.iCharactersArray].stats)
                             this.nomeCharacter.setX(this.widthFourthQuadrant / 2 - this.nomeCharacter.width / 2);
                             this.nomeCharacter.setY(this.lineaSimmetriaRettangolo1.y + this.lineaDecorativaSuperiore.y * 0.2);
                             //aggiungi il movimento di destra che hai precedentemente disabilitato

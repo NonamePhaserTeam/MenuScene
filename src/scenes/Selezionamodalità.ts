@@ -4,20 +4,21 @@ import Phaser from 'phaser'
 import { gameSettings } from '../consts/GameSettings'
 import SceneKeys from '../consts/SceneKeys'
 import TextureKeys from '../consts/TextureKeys'
+import FontKeys from '../consts/FontKeys'
 // import {TextureKeys, sprites} from '../consts/TextureKeys'
 
 export default class Selezionamodalità extends Phaser.Scene
 {
-    cursors :Phaser.Types.Input.Keyboard.CursorKeys
-    cursor : any
-    Camera: Phaser.Cameras.Scene2D.Camera;
-    Sfondo: Phaser.GameObjects.Image;
-    lineaDecorativaInferiore: Phaser.GameObjects.Image;
-    lineaDecorativaSuperiore: Phaser.GameObjects.Image;
-    cardDx: Phaser.GameObjects.Sprite;
-    cardSx: Phaser.GameObjects.Sprite;
-    cardDxIsTint: Boolean;
-    cardSxIsTint: Boolean;
+    private cursors :Phaser.Types.Input.Keyboard.CursorKeys
+    private cursor : any
+    private Camera: Phaser.Cameras.Scene2D.Camera;
+    private Sfondo: Phaser.GameObjects.Image;
+    private lineaDecorativaInferiore: Phaser.GameObjects.Image;
+    private lineaDecorativaSuperiore: Phaser.GameObjects.Image;
+    private cardDx: Phaser.GameObjects.Sprite;
+    private cardSx: Phaser.GameObjects.Sprite;
+    private cardDxIsTint: Boolean;
+    private cardSxIsTint: Boolean;
 
     constructor()
 	{
@@ -37,15 +38,16 @@ export default class Selezionamodalità extends Phaser.Scene
         this.Sfondo.setDisplaySize(gameSettings.gameWidth, gameSettings.gameHeight);
         this.Sfondo.setTint(0x222222);
         console.log(gameSettings.gameHeight)
-        this.lineaDecorativaInferiore = this.add.image(gameSettings.gameWidth/2,gameSettings.gameHeight-100, TextureKeys.lineaBianca);
+        this.lineaDecorativaInferiore = this.add.image(gameSettings.gameWidth/2,gameSettings.gameHeight-100, TextureKeys.lineaBianca).setAlpha(0);
         this.lineaDecorativaInferiore.scaleX = (gameSettings.gameWidth / this.lineaDecorativaInferiore.width)-50;
-        this.lineaDecorativaSuperiore = this.add.image(gameSettings.gameWidth/2,gameSettings.gameHeight-980, TextureKeys.lineaBianca);
+        this.lineaDecorativaSuperiore = this.add.image(gameSettings.gameWidth/2,gameSettings.gameHeight-980, TextureKeys.lineaBianca).setAlpha(0);
         this.lineaDecorativaSuperiore.scaleX = (gameSettings.gameWidth / this.lineaDecorativaSuperiore.width)-50;
         let heightbetween2lines =  this.lineaDecorativaInferiore.y -  this.lineaDecorativaSuperiore.y;
         console.log(heightbetween2lines)
         //600 è una misura da mettere in una variabile
         this.cardDx = this.add.sprite(gameSettings.gameWidth-600,heightbetween2lines/2, TextureKeys.card2);
         this.cardSx = this.add.sprite(gameSettings.gameWidth-Math.abs(gameSettings.gameWidth-600),heightbetween2lines/2, TextureKeys.card1);
+        this.cardSx.setY( (gameSettings.gameHeight)- (this.cardSx.height ))
         this.cardDx.setInteractive();
         this.cardSx.setInteractive();
         this.cardDx.setTint(0x555555);
@@ -54,7 +56,11 @@ export default class Selezionamodalità extends Phaser.Scene
         this.cardSxIsTint = false;
         this.cardSx.setScale(1.2);
         
-        let scrittaScena = this.add.text(0,0,"SELEZIONA UN'OPZIONE").setColor('#dddd00').setFontSize('72px').setAlpha(0.0);
+        let scrittaScena = this.add.bitmapText(0, 0, FontKeys.Arcade, "SCEGLI");
+        scrittaScena.setTint(0xdddd00);
+        scrittaScena.setFontSize(72);
+
+
         scrittaScena.setY(this.lineaDecorativaSuperiore.y/2-scrittaScena.height/2)     
         scrittaScena.setX(gameSettings.gameWidth/2-scrittaScena.width/2)
 
